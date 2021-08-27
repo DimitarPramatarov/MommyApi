@@ -1,6 +1,7 @@
 ﻿namespace MommyApi.Models.RequestModels
 {
-    public class  CreatePost
+
+    public class CreatePost
     {
         public string Title { get; set; }
 

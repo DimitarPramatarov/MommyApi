@@ -1,44 +1,43 @@
 ﻿namespace MommyApi.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using MommyApi.Data;
-    using MommyApi.Data.Models;
+    using System.Threading.Tasks;
+    using MommyApi.Services.Interfaces;
     using MommyApi.Models.RequestModels;
 
     public class PostController : ApiController
     {
-        private readonly MommyApiDbContext dbContext;
+        private readonly IPostService postService;
 
-        public PostController(MommyApiDbContext dbContext)
+        public PostController(IPostService postService)
         {
-            this.dbContext = dbContext;
+            this.postService = postService;
         }
 
         [HttpGet]
-        public ActionResult Post()
+        public ActionResult GetAllPosts()
         {
-            return Ok();
+            var result = postService.GetPosts();
+
+            if(result is null)
+            {
+                return BadRequest("Sorry, no posts");
+            }
+            return Ok(result);
         }
 
         [HttpPost]
-        public ActionResult CreatePost(CreatePost createPost, Post post)
+        public async Task<ActionResult> CreatePost(CreatePost createPost)
         {
             if(createPost is null)
             {
                 return BadRequest("Title or description cannot be empty");
             }
 
-            var newPost = new Post
-            {
-                Title = createPost.Title,
-                Description = createPost.Title
-            };
 
-            dbContext.Add(newPost);
-            dbContext.SaveChanges();
+            var result = await postService.CreatePost(createPost);
 
-
-            return Ok();
+            return Ok(result);
         }
     }
 }

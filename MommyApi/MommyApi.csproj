@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MommyApi.Data\MommyApi.Data.csproj" />
     <ProjectReference Include="..\MommyApi.Models\MommyApi.Models.csproj" />
+    <ProjectReference Include="..\MommyApi.Services\MommyApi.Services.csproj" />
   </ItemGroup>
 
 </Project>

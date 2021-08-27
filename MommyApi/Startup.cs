@@ -11,6 +11,8 @@ namespace MommyApi
 
     using MommyApi.Data;
     using MommyApi.Data.Models;
+    using MommyApi.Services;
+    using MommyApi.Services.Interfaces;
 
     public class Startup
     {
@@ -45,6 +47,8 @@ namespace MommyApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
+
+            services.AddTransient<IPostService, PostService>();
 
         }
 

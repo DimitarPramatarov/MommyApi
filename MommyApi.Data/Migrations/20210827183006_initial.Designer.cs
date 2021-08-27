@@ -10,7 +10,7 @@ using MommyApi.Data;
 namespace MommyApi.Data.Migrations
 {
     [DbContext(typeof(MommyApiDbContext))]
-    [Migration("20210827181708_initial")]
+    [Migration("20210827183006_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,8 +158,10 @@ namespace MommyApi.Data.Migrations
 
             modelBuilder.Entity("MommyApi.Data.Models.Post", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
