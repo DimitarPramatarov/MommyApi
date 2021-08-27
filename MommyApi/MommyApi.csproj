@@ -14,4 +14,8 @@
 	<PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MommyApi.Data\MommyApi.Data.csproj" />
+  </ItemGroup>
+
 </Project>
