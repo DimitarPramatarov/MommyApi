@@ -18,13 +18,18 @@ namespace MommyApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDatabase(this.Configuration);
-            services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddIdentity();
-            services.AddApplicationServices();
-            services.AddControllers();
-            services.AddJwtAuthentication(services.GetApplicationSettings(this.Configuration));
-            services.AddSwagger();
+            services
+                .AddDatabase(this.Configuration)
+                .AddDatabaseDeveloperPageExceptionFilter()
+                .AddIdentity()
+                .AddApplicationServices()
+                .AddControllers();
+            
+            services
+                .AddJwtAuthentication(services.GetApplicationSettings(this.Configuration));
+           
+            services
+                .AddSwagger();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
