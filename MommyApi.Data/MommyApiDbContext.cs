@@ -12,5 +12,18 @@
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.
+                Entity<Post>()
+                .HasQueryFilter(c => !c.IsDeleted)
+                .HasOne(c => c.User)
+                .WithMany(c => c.Post)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+                
+            base.OnModelCreating(builder);
+        }
     }
 }
