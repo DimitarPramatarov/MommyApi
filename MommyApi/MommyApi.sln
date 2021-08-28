@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MommyApi", "MommyApi.csproj", "{4D37E661-019D-4940-BADD-72F3A457D263}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MommyApi", "MommyApi.csproj", "{4D37E661-019D-4940-BADD-72F3A457D263}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MommyApi.Services", "..\MommyApi.Services\MommyApi.Services.csproj", "{08B5BFB6-25F9-4584-B949-2F460DA7B314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MommyApi.Services", "..\MommyApi.Services\MommyApi.Services.csproj", "{08B5BFB6-25F9-4584-B949-2F460DA7B314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MommyApi.Data", "..\MommyApi.Data\MommyApi.Data.csproj", "{962CC732-49A9-4AC2-A2B5-028930393B38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MommyApi.Data", "..\MommyApi.Data\MommyApi.Data.csproj", "{962CC732-49A9-4AC2-A2B5-028930393B38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MommyApi.Models", "..\MommyApi.Models\MommyApi.Models.csproj", "{D039E071-3A0D-45E3-99BD-969C0FB7BD15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MommyApi.Models", "..\MommyApi.Models\MommyApi.Models.csproj", "{D039E071-3A0D-45E3-99BD-969C0FB7BD15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

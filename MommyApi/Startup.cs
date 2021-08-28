@@ -13,6 +13,7 @@ namespace MommyApi
     using MommyApi.Data.Models;
     using MommyApi.Services;
     using MommyApi.Services.Interfaces;
+    using MommyApi.Infrastructure.Extensions;
 
     public class Startup
     {
@@ -26,30 +27,13 @@ namespace MommyApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MommyApiDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDatabase(this.Configuration);
             services.AddDatabaseDeveloperPageExceptionFilter();
-
-            services.AddDefaultIdentity<User>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<MommyApiDbContext>();
-
+            services.AddIdentity();
+            services.AddApplicationServices();
             services.AddControllers();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-            });
-
-            services.AddTransient<IPostService, PostService>();
-
+            services.AddJwtAuthentication(services.GetApplicationSettings(this.Configuration));
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,9 +55,8 @@ namespace MommyApi
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
-
+            
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

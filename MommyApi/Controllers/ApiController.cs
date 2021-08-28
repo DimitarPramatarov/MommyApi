@@ -1,10 +1,12 @@
 ﻿namespace MommyApi.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class ApiController : ControllerBase
+    public abstract class ApiController : ControllerBase
     {
 
     }
