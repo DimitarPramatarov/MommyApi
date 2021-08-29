@@ -12,5 +12,9 @@
         Task<IEnumerable<PostResponseModel>> GetPosts();
 
         Task<IEnumerable<PostResponseModel>> MyPosts();
+
+        Task<PostDetailsResponseModel> PostDetails(int PostId);
+
+        Task<bool> SetPostAsAnswered(int postId);
     }
 }

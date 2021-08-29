@@ -47,10 +47,13 @@
         public async Task<IEnumerable<PostResponseModel>> GetPosts()
         {
 
-            var result = await dbContext.Posts.OrderBy(x => x.CreatedOn).Include(x => x.User).ToListAsync();
+            var result = await dbContext.Posts
+                .OrderBy(x => x.CreatedOn)
+                .Where(x => x.IsDeleted == false)
+                .Include(x => x.User)
+                .ToListAsync();
 
             IList<PostResponseModel> resultRes = new List<PostResponseModel>();
-
 
             foreach(var item in result)
             {
@@ -66,30 +69,87 @@
             }
 
             return resultRes;
-
         }
 
         public async Task<IEnumerable<PostResponseModel>> MyPosts()
         {
             var userId = currentUserService.GetId();
 
-            var myPosts = await dbContext.Posts.Where(x => x.UserId == userId).ToListAsync();
+            var myPosts = await dbContext.Posts
+                .Where(x => x.UserId == userId && x.IsDeleted == false)
+                .ToListAsync();
 
             IList<PostResponseModel> result = new List<PostResponseModel>();
 
-            foreach(var item in result)
+            foreach(var item in myPosts)
             {
                 var myPost = new PostResponseModel
                 {
                     CreatedOn = item.CreatedOn,
-                    PostId = item.PostId,
+                    PostId = item.Id,
                     Title = item.Title,
+                    Username = item.CreatedBy
                 };
 
                 result.Add(myPost);
             }
 
             return result;
+        }
+
+        public async Task<PostDetailsResponseModel> PostDetails(int postId)
+        {
+            var postDetails = await this.dbContext.Posts
+                .Where(x => x.Id == postId && x.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+            var post = new PostDetailsResponseModel
+            {
+                IsAnswered = postDetails.Answered,
+                Username = postDetails.CreatedBy,
+                CreatedOn = postDetails.CreatedOn,
+                PostId = postDetails.Id,
+                Description = postDetails.Description,
+                Title = postDetails.Title,
+            };
+
+            return post;
+        }
+
+        public async Task<bool> SetPostAsAnswered(int postId)
+        {
+            var userId = currentUserService.GetId();
+
+            var post = await this.dbContext.Posts
+                .Where(x => x.Id == postId)
+                .FirstOrDefaultAsync();
+            
+            if(userId != post.UserId)
+            {
+                return false;
+            }
+            
+            post.Answered = true;
+
+            await dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<string> DeletePost(int postId)
+        {
+            var userId = currentUserService.GetId();
+
+            var post = await this.dbContext.Posts.Where(x => x.Id == postId).FirstOrDefaultAsync();
+
+            if(userId != post.UserId)
+            {
+                return "This user cannot delete the post";
+            }
+
+            post.IsDeleted = true;
+
+            return "Post is deleted";
         }
     }
 }

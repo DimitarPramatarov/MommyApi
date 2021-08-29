@@ -55,5 +55,33 @@
 
             return Ok(myPosts);
         }
+
+        [HttpGet]
+        [Route(nameof(Details))]
+        public async Task<ActionResult> Details(int id)
+        {
+            var postDetails = await postService.PostDetails(id);
+
+            if(postDetails is null)
+            {
+                return BadRequest("Post not found");
+            }
+
+            return Ok(postDetails);
+        }
+
+        [HttpPost]
+        [Route(nameof(SetIsAnswered))]
+        public async Task<ActionResult> SetIsAnswered(int postId)
+        {
+            var result = await postService.SetPostAsAnswered(postId);
+
+            if(result == false)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
     }
 }

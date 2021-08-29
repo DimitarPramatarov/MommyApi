@@ -11,5 +11,7 @@
         public DateTime CreatedOn { get; set; }
 
         public string Username { get; set; }
+
+        public bool IsAnswered { get; set; }
     }
 }
