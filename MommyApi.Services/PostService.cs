@@ -10,6 +10,7 @@
     using MommyApi.Models.ResponseModels;
     using System.Collections.Generic;
     using MommyApi.AppInfrastructure.Services;
+    using Microsoft.EntityFrameworkCore;
 
     public class PostService : IPostService
     {
@@ -46,7 +47,7 @@
         public async Task<IEnumerable<PostResponseModel>> GetPosts()
         {
 
-            var result =  dbContext.Posts.ToList();
+            var result = await dbContext.Posts.OrderBy(x => x.CreatedOn).Include(x => x.User).ToListAsync();
 
             IList<PostResponseModel> resultRes = new List<PostResponseModel>();
 
@@ -57,7 +58,8 @@
                 {
                     CreatedOn = item.CreatedOn,
                     PostId = item.Id,
-                    Title = item.Title
+                    Title = item.Title,
+                    Username = item.User.UserName
                 };
 
                 resultRes.Add(post);
@@ -65,6 +67,29 @@
 
             return resultRes;
 
+        }
+
+        public async Task<IEnumerable<PostResponseModel>> MyPosts()
+        {
+            var userId = currentUserService.GetId();
+
+            var myPosts = await dbContext.Posts.Where(x => x.UserId == userId).ToListAsync();
+
+            IList<PostResponseModel> result = new List<PostResponseModel>();
+
+            foreach(var item in result)
+            {
+                var myPost = new PostResponseModel
+                {
+                    CreatedOn = item.CreatedOn,
+                    PostId = item.PostId,
+                    Title = item.Title,
+                };
+
+                result.Add(myPost);
+            }
+
+            return result;
         }
     }
 }

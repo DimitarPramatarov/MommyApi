@@ -10,5 +10,7 @@
         Task<string> CreatePost(CreatePost createPost);
 
         Task<IEnumerable<PostResponseModel>> GetPosts();
+
+        Task<IEnumerable<PostResponseModel>> MyPosts();
     }
 }

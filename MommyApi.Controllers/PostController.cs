@@ -15,9 +15,10 @@
         }
 
         [HttpGet]
-        public ActionResult GetAllPosts()
+        [Route(nameof(GetAllPosts))]
+        public async Task<ActionResult> GetAllPosts()
         {
-            var result = postService.GetPosts();
+            var result = await postService.GetPosts();
 
             if(result is null)
             {
@@ -27,6 +28,7 @@
         }
 
         [HttpPost]
+        [Route(nameof(CreatePost))]
         public async Task<ActionResult> CreatePost(CreatePost createPost)
         {
             if(createPost is null)
@@ -38,6 +40,20 @@
             var result = await postService.CreatePost(createPost);
 
             return Ok(result);
+        }
+
+        [HttpGet]
+        [Route(nameof(MyPosts))]
+        public async Task<ActionResult> MyPosts()
+        {
+            var myPosts = await postService.MyPosts();
+
+            if(myPosts is null)
+            {
+                return BadRequest("No posts");
+            }
+
+            return Ok(myPosts);
         }
     }
 }
