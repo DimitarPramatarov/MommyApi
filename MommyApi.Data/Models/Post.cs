@@ -1,6 +1,7 @@
 ﻿namespace MommyApi.Data.Models
 {
     using MommyApi.Data.Models.Base;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class Post : DeletableEntity
@@ -19,6 +20,8 @@
         public User User { get; set; }
 
         public bool Answered { get; set; } = false;
+
+        public IEnumerable<Answer> Answers { get; set; }
 
 
 

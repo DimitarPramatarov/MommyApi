@@ -83,7 +83,8 @@
             => services
              .AddTransient<IIdentityService, IdentityService>()
               .AddTransient<ICurrentUserService, CurrentUserService>() 
-            .AddTransient<IPostService, PostService>();
+            .AddTransient<IPostService, PostService>()
+            .AddTransient<IAnswerService, AnswerService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
             => services.AddSwaggerGen(c =>

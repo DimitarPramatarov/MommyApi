@@ -23,6 +23,8 @@
 
         public DbSet<Post> Posts { get; init; }
 
+        public DbSet<Answer> Answers { get; init; }
+
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             this.ApplyAuditInformation();
@@ -41,6 +43,14 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder
+                .Entity<Answer>()
+                .HasQueryFilter(x => !x.IsDeleted)
+                .HasOne(x => x.Post)
+                .WithMany(x => x.Answers)
+                .HasForeignKey(x => x.PostId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.
                 Entity<Post>()
                 .HasQueryFilter(c => !c.IsDeleted)
