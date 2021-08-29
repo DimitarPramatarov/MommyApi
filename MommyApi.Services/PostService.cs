@@ -9,26 +9,31 @@
     using System.Linq;
     using MommyApi.Models.ResponseModels;
     using System.Collections.Generic;
+    using MommyApi.AppInfrastructure.Services;
 
     public class PostService : IPostService
     {
         private readonly MommyApiDbContext dbContext;
+        private readonly ICurrentUserService currentUserService;
 
-        public PostService(MommyApiDbContext dbContext)
+        public PostService(MommyApiDbContext dbContext,
+            ICurrentUserService currentUserService)
         {
             this.dbContext = dbContext;
+            this.currentUserService = currentUserService;
         }
 
 
         public async Task<string> CreatePost(CreatePost createPost)
         {
+            var userId = currentUserService.GetId();
 
             var newPost = new Post
             {
                 Title = createPost.Title,
                 Description = createPost.Description,
-                CreatedOn = DateTime.UtcNow
-
+                CreatedOn = DateTime.UtcNow,
+                UserId = userId
             };
 
            await dbContext.AddAsync(newPost);

@@ -1,8 +1,8 @@
-﻿namespace MommyApi.Infrastructure.Services
+﻿namespace MommyApi.AppInfrastructure.Services
 {
     public interface ICurrentUserService
     {
-        string GetUsername();
+        string GetUserName();
 
         string GetId();
     }

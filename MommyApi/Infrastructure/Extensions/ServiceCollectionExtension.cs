@@ -7,6 +7,8 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+    using MommyApi.AppInfrastructure;
+    using MommyApi.AppInfrastructure.Services;
     using MommyApi.Data;
     using MommyApi.Data.Models;
     using MommyApi.Services;
@@ -80,7 +82,8 @@
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services
              .AddTransient<IIdentityService, IdentityService>()
-             .AddTransient<IPostService, PostService>();
+              .AddTransient<ICurrentUserService, CurrentUserService>() 
+            .AddTransient<IPostService, PostService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
             => services.AddSwaggerGen(c =>

@@ -1,4 +1,4 @@
-﻿namespace MommyApi
+﻿namespace MommyApi.AppInfrastructure
 {
     public class AppSettings
     {

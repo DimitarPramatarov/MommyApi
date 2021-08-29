@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<ProjectReference Include="..\MommyApi.AppInfrastructure\MommyApi.AppInfrastructure.csproj" />
+		<ProjectReference Include="..\MommyApi.Services\MommyApi.Services.csproj" />
+	</ItemGroup>
+</Project>
