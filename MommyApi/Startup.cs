@@ -6,6 +6,7 @@ namespace MommyApi
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using MommyApi.Infrastructure.Extensions;
+    using System.Text.Json.Serialization;
 
     public class Startup
     {
@@ -23,8 +24,9 @@ namespace MommyApi
                 .AddDatabaseDeveloperPageExceptionFilter()
                 .AddIdentity()
                 .AddApplicationServices()
-                .AddControllers();
-            
+                .AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
             services
                 .AddJwtAuthentication(services.GetApplicationSettings(this.Configuration));
            

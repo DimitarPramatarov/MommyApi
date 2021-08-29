@@ -2,7 +2,9 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using MommyApi.Models.RequestModels;
+    using MommyApi.Models.ResponseModels;
     using MommyApi.Services.Interfaces;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     public class AnswerController : ApiController
@@ -31,17 +33,9 @@
 
         [HttpGet]
         [Route(nameof(GetAnswers))]
-        public async Task<ActionResult> GetAnswers(string postId)
-        {
-            var answers = answerService.GetAnswers(postId);
+        public async Task<IEnumerable<AnswerResponseModel>> GetAnswers(int postId)
+        =>  await this.answerService.GetAnswers(postId);
 
-            if(answers is null)
-            {
-                return BadRequest("Answers not found!");
-            }
-
-            return Ok(answers);
-        }
 
     }
 }

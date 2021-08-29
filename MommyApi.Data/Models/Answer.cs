@@ -12,7 +12,7 @@
         public string Text { get; set; }
 
         [Required]
-        public string PostId { get; set; }
+        public int PostId { get; set; }
 
         public Post Post { get; set; }
 

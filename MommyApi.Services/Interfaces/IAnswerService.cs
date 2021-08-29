@@ -9,6 +9,6 @@
     {
         Task<string> CreateAnswer(AnswerRequestModel requestModel);
 
-        Task<IEnumerable<AnswerResponseModel>> GetAnswers(string postId);
+        Task<IEnumerable<AnswerResponseModel>> GetAnswers(int postId);
     }
 }
