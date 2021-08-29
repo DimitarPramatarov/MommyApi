@@ -136,7 +136,7 @@
             return true;
         }
 
-        public async Task<string> DeletePost(int postId)
+        public async Task<bool> DeletePost(int postId)
         {
             var userId = currentUserService.GetId();
 
@@ -144,12 +144,13 @@
 
             if(userId != post.UserId)
             {
-                return "This user cannot delete the post";
+                return false;
             }
 
             post.IsDeleted = true;
 
-            return "Post is deleted";
+            return true;
         }
+
     }
 }

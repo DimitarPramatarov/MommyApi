@@ -20,7 +20,7 @@
         {
             var result = await postService.GetPosts();
 
-            if(result is null)
+            if (result is null)
             {
                 return BadRequest("Sorry, no posts");
             }
@@ -31,7 +31,7 @@
         [Route(nameof(CreatePost))]
         public async Task<ActionResult> CreatePost(CreatePost createPost)
         {
-            if(createPost is null)
+            if (createPost is null)
             {
                 return BadRequest("Title or description cannot be empty");
             }
@@ -48,7 +48,7 @@
         {
             var myPosts = await postService.MyPosts();
 
-            if(myPosts is null)
+            if (myPosts is null)
             {
                 return BadRequest("No posts");
             }
@@ -62,7 +62,7 @@
         {
             var postDetails = await postService.PostDetails(id);
 
-            if(postDetails is null)
+            if (postDetails is null)
             {
                 return BadRequest("Post not found");
             }
@@ -76,12 +76,27 @@
         {
             var result = await postService.SetPostAsAnswered(postId);
 
-            if(result == false)
+            if (result == false)
             {
                 return BadRequest(result);
             }
 
             return Ok(result);
+        }
+
+        [HttpPost]
+        [Route(nameof(DeletePost))]
+        public async Task<ActionResult> DeletePost(int postId)
+        {
+            var result = await postService.DeletePost(postId);
+
+            if(result is false)
+            {
+                return BadRequest("User cannot delete the post");
+            }
+
+            return Ok("Post is deleted");
+            
         }
     }
 }

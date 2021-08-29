@@ -16,5 +16,7 @@
         Task<PostDetailsResponseModel> PostDetails(int PostId);
 
         Task<bool> SetPostAsAnswered(int postId);
+
+        Task<bool> DeletePost(int postId);
     }
 }
