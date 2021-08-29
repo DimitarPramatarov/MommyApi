@@ -29,5 +29,19 @@
             return Ok(answer);
         }
 
+        [HttpGet]
+        [Route(nameof(GetAnswers))]
+        public async Task<ActionResult> GetAnswers(string postId)
+        {
+            var answers = answerService.GetAnswers(postId);
+
+            if(answers is null)
+            {
+                return BadRequest("Answers not found!");
+            }
+
+            return Ok(answers);
+        }
+
     }
 }
