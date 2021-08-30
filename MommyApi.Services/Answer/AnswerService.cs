@@ -77,8 +77,6 @@
             return responeAnswers;
         }
 
-
-        //TODO: check is this method actually needed in your app
         private async Task<bool> CheckIfUserAlreadyAnswered(int postId)
         {
             var userName = currentUserService.GetUserName();

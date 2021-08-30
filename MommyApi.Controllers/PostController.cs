@@ -98,5 +98,20 @@
             return Ok("Post is deleted");
             
         }
+
+
+        [HttpPut]
+        [Route(nameof(UpdatePost))]
+        public async Task<ActionResult> UpdatePost(int postId, string description)
+        {
+            var result = await this.postService.UpdatePost(postId, description);
+
+            if (result is false)
+            {
+                return BadRequest("This user cannot update the asnwer");
+            }
+
+            return Ok(result);
+        }
     }
 }

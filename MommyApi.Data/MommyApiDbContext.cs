@@ -20,10 +20,11 @@
             this.currentUserService = currentUserService;
         }
 
-
         public DbSet<Post> Posts { get; init; }
 
         public DbSet<Answer> Answers { get; init; }
+
+        public DbSet<UserProfile> UserProfiles {get; init;}
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {

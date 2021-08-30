@@ -1,8 +1,8 @@
 ﻿namespace MommyApi.Data.Models
 {
-    public class Like
+    public class Point
     {
-        public int LikeId { get; set; }
+        public int PointId { get; set; }
 
         public int UserId { get; set; }
     }

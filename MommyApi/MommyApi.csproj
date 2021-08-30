@@ -21,7 +21,6 @@
     <ProjectReference Include="..\MommyApi.AppInfrastructure\MommyApi.AppInfrastructure.csproj" />
     <ProjectReference Include="..\MommyApi.Controllers\MommyApi.Controllers.csproj" />
     <ProjectReference Include="..\MommyApi.Data\MommyApi.Data.csproj" />
-    <ProjectReference Include="..\MommyApi.Infrastructure\MommyApi.AppInfrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,6 +12,8 @@
         public DateTime? ModifedOn { get; set; }
         public string ModifiedBy { get; set ; }
 
+        public UserProfile UserProfile { get; set; }
+
         public IEnumerable<Post> Post { get; } = new HashSet<Post>();
     }
 }

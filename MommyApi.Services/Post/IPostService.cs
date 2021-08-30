@@ -18,5 +18,7 @@
         Task<bool> SetPostAsAnswered(int postId);
 
         Task<bool> DeletePost(int postId);
+
+        Task<bool> UpdatePost(int postId, string description);
     }
 }

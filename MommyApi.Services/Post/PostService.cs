@@ -152,5 +152,20 @@
             return true;
         }
 
+        public async Task<bool> UpdatePost(int postId, string description)
+        {
+            var answer = await this.dbContext.Posts.Where(x => x.PostId == postId).FirstOrDefaultAsync();
+            var userId = currentUserService.GetUserName();
+
+            if (userId != answer.CreatedBy)
+            {
+                return false;
+            }
+
+            answer.Description = description;
+            await dbContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
