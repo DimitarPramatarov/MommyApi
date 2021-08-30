@@ -4,6 +4,6 @@
 
     public interface IProfileService
     {
-        Task<bool> CreateProfileByUser();
+        Task<bool> CreateProfileByUser(string username);
     }
 }

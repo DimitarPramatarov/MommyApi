@@ -1,7 +1,9 @@
 ﻿namespace MommyApi.Services.Profile
 {
+    using Microsoft.EntityFrameworkCore;
     using MommyApi.AppInfrastructure.Services;
     using MommyApi.Data;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class ProfileService : IProfileService
@@ -9,11 +11,13 @@
         private readonly MommyApiDbContext dbContext;
         private readonly ICurrentUserService currentUserService;
 
-        public async Task<bool> CreateProfileByUser()
+        public async Task<bool> CreateProfileByUser(string username)
         {
-            var userId = currentUserService.GetId();
-            var username = currentUserService.GetUserName();
-
+            var userId = this.dbContext.Users
+                .Where(x => x.UserName == username)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync()
+                .ToString();
 
             var profile = new UserProfile
             {

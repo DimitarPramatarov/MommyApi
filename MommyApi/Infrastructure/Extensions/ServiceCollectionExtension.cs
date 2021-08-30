@@ -13,6 +13,7 @@
     using MommyApi.Data.Models;
     using MommyApi.Services;
     using MommyApi.Services.Interfaces;
+    using MommyApi.Services.Profile;
     using System.Text;
 
     public static class ServiceCollectionExtension
@@ -84,7 +85,8 @@
              .AddTransient<IIdentityService, IdentityService>()
               .AddTransient<ICurrentUserService, CurrentUserService>() 
             .AddTransient<IPostService, PostService>()
-            .AddTransient<IAnswerService, AnswerService>();
+            .AddTransient<IAnswerService, AnswerService>()
+            .AddTransient<IProfileService, ProfileService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
             => services.AddSwaggerGen(c =>
