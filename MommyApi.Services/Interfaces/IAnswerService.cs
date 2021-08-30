@@ -11,6 +11,8 @@
 
         Task<IEnumerable<AnswerResponseModel>> GetAnswers(int postId);
 
-        Task<bool> UpdateAnswer(int postId, string description);
+        Task<bool> UpdateAnswer(int answerId, string description);
+
+        Task<bool> DeleteAnswer(int answerId);
     }
 }

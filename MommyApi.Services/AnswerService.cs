@@ -111,5 +111,22 @@
 
             return true;
         }
+
+        public async Task<bool> DeleteAnswer(int answerId)
+        {
+            var answer = await this.dbContext.Answers.Where(x => x.AnswerId == answerId).FirstOrDefaultAsync();
+            var userId = currentUserService.GetUserName();
+
+
+            if (userId != answer.CreatedBy)
+            {
+                return false;
+            }
+
+            answer.IsDeleted = true;
+
+            return true;
+
+        }
     }
 }

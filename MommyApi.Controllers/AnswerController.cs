@@ -39,13 +39,27 @@
         
         [HttpPut]
         [Route(nameof(UpdateAnswer))]
-        public async Task<ActionResult> UpdateAnswer(int postId, string description)
+        public async Task<ActionResult> UpdateAnswer(int answerId, string description)
         {
-            var result = await this.answerService.UpdateAnswer(postId, description);
+            var result = await this.answerService.UpdateAnswer(answerId, description);
 
             if(result is false)
             {
                 return BadRequest("This user cannot update the asnwer");
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route(nameof(DeleteAnswer))]
+        public async Task<ActionResult> DeleteAnswer(int answerId)
+        {
+            var result = await this.answerService.DeleteAnswer(answerId);
+
+            if(result is false)
+            {
+                return BadRequest("This user cannot delete answer");
             }
 
             return Ok(result);
