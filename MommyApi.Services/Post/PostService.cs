@@ -60,7 +60,7 @@
                 var post = new PostResponseModel
                 {
                     CreatedOn = item.CreatedOn,
-                    PostId = item.Id,
+                    PostId = item.PostId,
                     Title = item.Title,
                     Username = item.User.UserName
                 };
@@ -86,7 +86,7 @@
                 var myPost = new PostResponseModel
                 {
                     CreatedOn = item.CreatedOn,
-                    PostId = item.Id,
+                    PostId = item.PostId,
                     Title = item.Title,
                     Username = item.CreatedBy
                 };
@@ -100,7 +100,7 @@
         public async Task<PostDetailsResponseModel> PostDetails(int postId)
         {
             var postDetails = await this.dbContext.Posts
-                .Where(x => x.Id == postId && x.IsDeleted == false)
+                .Where(x => x.PostId == postId && x.IsDeleted == false)
                 .FirstOrDefaultAsync();
 
             var post = new PostDetailsResponseModel
@@ -108,7 +108,7 @@
                 IsAnswered = postDetails.Answered,
                 Username = postDetails.CreatedBy,
                 CreatedOn = postDetails.CreatedOn,
-                PostId = postDetails.Id,
+                PostId = postDetails.PostId,
                 Description = postDetails.Description,
                 Title = postDetails.Title,
             };
@@ -121,7 +121,7 @@
             var userId = currentUserService.GetId();
 
             var post = await this.dbContext.Posts
-                .Where(x => x.Id == postId)
+                .Where(x => x.PostId == postId)
                 .FirstOrDefaultAsync();
             
             if(userId != post.UserId)
@@ -140,7 +140,7 @@
         {
             var userId = currentUserService.GetId();
 
-            var post = await this.dbContext.Posts.Where(x => x.Id == postId).FirstOrDefaultAsync();
+            var post = await this.dbContext.Posts.Where(x => x.PostId == postId).FirstOrDefaultAsync();
 
             if(userId != post.UserId)
             {
