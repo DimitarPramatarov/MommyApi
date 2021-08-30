@@ -36,6 +36,19 @@
         public async Task<IEnumerable<AnswerResponseModel>> GetAnswers(int postId)
         =>  await this.answerService.GetAnswers(postId);
 
+        
+        [HttpPut]
+        [Route(nameof(UpdateAnswer))]
+        public async Task<ActionResult> UpdateAnswer(int postId, string description)
+        {
+            var result = await this.answerService.UpdateAnswer(postId, description);
 
+            if(result is false)
+            {
+                return BadRequest("This user cannot update the asnwer");
+            }
+
+            return Ok(true);
+        }
     }
 }

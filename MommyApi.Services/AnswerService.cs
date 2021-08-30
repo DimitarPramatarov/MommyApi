@@ -77,6 +77,8 @@
             return responeAnswers;
         }
 
+
+        //TODO: check is this method actually needed in your app
         private async Task<bool> CheckIfUserAlreadyAnswered(int postId)
         {
             var userName = currentUserService.GetUserName();
@@ -90,6 +92,22 @@
             {
                 return false;
             }
+
+            return true;
+        }
+
+        public async Task<bool> UpdateAnswer(int answerId, string description)
+        {
+            var answer = await this.dbContext.Answers.Where(x => x.AnswerId == answerId).FirstOrDefaultAsync();
+            var userId =  currentUserService.GetUserName();
+
+            if(userId != answer.CreatedBy)
+            {
+                return false;
+            }
+
+            answer.Text = description;
+            await dbContext.SaveChangesAsync();
 
             return true;
         }

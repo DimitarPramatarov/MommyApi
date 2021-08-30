@@ -10,5 +10,7 @@
         Task<string> CreateAnswer(AnswerRequestModel requestModel);
 
         Task<IEnumerable<AnswerResponseModel>> GetAnswers(int postId);
+
+        Task<bool> UpdateAnswer(int postId, string description);
     }
 }
