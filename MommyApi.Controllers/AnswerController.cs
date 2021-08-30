@@ -48,7 +48,7 @@
                 return BadRequest("This user cannot update the asnwer");
             }
 
-            return Ok(true);
+            return Ok(result);
         }
     }
 }
