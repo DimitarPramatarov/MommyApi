@@ -4,6 +4,8 @@
 
     public interface IProfileService
     {
-        Task<bool> CreateProfileByUser(string username);
+        Task<bool> CreateProfileByUser(string username, string userId);
+
+        Task<bool> UpdateProfile(string description, string mainPhotoUrl);
     }
 }

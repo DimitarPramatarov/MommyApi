@@ -95,7 +95,7 @@
                 return false;
             }
 
-            var createUserProfile = await profileService.CreateProfileByUser(user.UserName);
+            var createUserProfile = await profileService.CreateProfileByUser(user.UserName, user.Id);
 
             if(createUserProfile is false)
             {
