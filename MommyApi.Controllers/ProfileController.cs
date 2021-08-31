@@ -13,6 +13,21 @@
             this.profileService = profileService;
         }
 
+        [HttpGet]
+        [Route(nameof(ProfileDetails))]
+        public async Task<ActionResult> ProfileDetails(string profileId)
+        {
+            var result = this.profileService.ProfileDetails(profileId);
+
+            if(result == null)
+            {
+                return BadRequest("User profile not found");
+            }
+
+
+            return Ok(result);
+        }
+
         [HttpPut]
         [Route(nameof(UpdateProfile))]
         public async Task<ActionResult> UpdateProfile(string description, string mainPhotoUrl)

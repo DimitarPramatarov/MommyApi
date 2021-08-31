@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
+    using MommyApi.Models.ResponseModels;
 
     public class ProfileService : IProfileService
     {
@@ -38,8 +39,29 @@
             return true;
         }
 
+        public async Task<ProfileResponseModel> ProfileDetails(string profileId)
+        {
+            var profileDetails = await this.dbContext.UserProfiles.FindAsync(profileId);
 
-        //To do create an update method for updating user profile // description / photo 
+            if(profileDetails == null)
+            {
+                return null;
+            }
+
+            var profile = new ProfileResponseModel
+            {
+                Answers = profileDetails.Asnwers,
+                Follows = profileDetails.Follows,
+                Description = profileDetails.Description,
+                MainPhotoUrl = profileDetails.MainPhotoUrl,
+                Posts = profileDetails.Posts,
+                UserName = profileDetails.Username,
+            };
+
+            return profile;
+        }
+
+         
         public  async Task<bool> UpdateProfile(string userId, string description, string mainPhotoUrl)
         {
             var currentUserId = currentUserService.GetId();
