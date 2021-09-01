@@ -12,8 +12,10 @@
     using MommyApi.Data;
     using MommyApi.Data.Models;
     using MommyApi.Services;
+    using MommyApi.Services.ActivityCounter;
     using MommyApi.Services.Interfaces;
     using MommyApi.Services.Profile;
+    using MommyApi.Services.SubAsnwer;
     using System.Text;
 
     public static class ServiceCollectionExtension
@@ -86,6 +88,8 @@
               .AddTransient<ICurrentUserService, CurrentUserService>() 
             .AddTransient<IPostService, PostService>()
             .AddTransient<IAnswerService, AnswerService>()
+            .AddTransient<ISubAnswerService, SubAnswerService>()
+            .AddTransient<IActivityCounterService, ActivityCounterService>()
             .AddTransient<IProfileService, ProfileService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
