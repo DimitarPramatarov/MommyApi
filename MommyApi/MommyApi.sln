@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MommyApi.Controllers", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MommyApi.AppInfrastructure", "..\MommyApi.AppInfrastructure\MommyApi.AppInfrastructure.csproj", "{312E6AFA-A023-4D02-9BE4-28F035535C58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MommyApi.Test", "..\MommyApi.Test\MommyApi.Test.csproj", "{649FF7B0-2735-492A-880D-F4BACA3F26ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MommyApi.Test", "..\MommyApi.Test\MommyApi.Test.csproj", "{649FF7B0-2735-492A-880D-F4BACA3F26ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MommyApi.Common", "..\MommyApi.Common\MommyApi.Common.csproj", "{B3F43951-107F-407D-B828-96ABAC6C1AE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{649FF7B0-2735-492A-880D-F4BACA3F26ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{649FF7B0-2735-492A-880D-F4BACA3F26ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{649FF7B0-2735-492A-880D-F4BACA3F26ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F43951-107F-407D-B828-96ABAC6C1AE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F43951-107F-407D-B828-96ABAC6C1AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F43951-107F-407D-B828-96ABAC6C1AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F43951-107F-407D-B828-96ABAC6C1AE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

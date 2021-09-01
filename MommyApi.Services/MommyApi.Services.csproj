@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MommyApi.AppInfrastructure\MommyApi.AppInfrastructure.csproj" />
+    <ProjectReference Include="..\MommyApi.Common\MommyApi.Common.csproj" />
     <ProjectReference Include="..\MommyApi.Data\MommyApi.Data.csproj" />
     <ProjectReference Include="..\MommyApi.Models\MommyApi.Models.csproj" />
   </ItemGroup>
