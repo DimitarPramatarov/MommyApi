@@ -37,8 +37,8 @@
                 return false;
             }
 
-            await dbContext.AddAsync(profile);
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.AddAsync(profile);
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
@@ -68,7 +68,7 @@
          
         public  async Task<bool> UpdateProfile(UpdateProfileRequestModel requestModel)
         {
-            var currentUserId = currentUserService.GetId();
+            var currentUserId = this.currentUserService.GetId();
 
             var profile = await this.dbContext.UserProfiles
                 .Where(x => x.UserId == requestModel.UserId).FirstOrDefaultAsync();
@@ -78,10 +78,17 @@
                 return false;
             }
 
-            profile.Description = requestModel.Descritpion;
-            profile.MainPhotoUrl = requestModel.Descritpion;
+            if(requestModel.Descritpion != null)
+            {
+                profile.Description = requestModel.Descritpion;
+            }
 
-            await dbContext.SaveChangesAsync();
+            if(requestModel.MainPhotoUrl != null)
+            {
+                profile.MainPhotoUrl = requestModel.Descritpion;
+            }
+
+            await this.dbContext.SaveChangesAsync();
              
 
             return true;
