@@ -16,15 +16,12 @@
     {
         private readonly MommyApiDbContext dbContext;
         private readonly ICurrentUserService currentUserService;
-        private readonly IActivityCounterService activityCounterService;
 
         public SubAnswerService(MommyApiDbContext dbContext,
-            ICurrentUserService currentUserService,
-            IActivityCounterService activityCounterService)
+            ICurrentUserService currentUserService)
         {
             this.dbContext = dbContext;
             this.currentUserService = currentUserService;
-            this.activityCounterService = activityCounterService;
         }
     
         public async Task<string> CreateSubAnswer(SubAnswerRequestModel requestModel)
@@ -45,7 +42,6 @@
 
             await this.dbContext.AddAsync(answer);
             await this.dbContext.SaveChangesAsync();
-            await this.activityCounterService.SubAnswerCount();
 
             return "Answer is created";
         }

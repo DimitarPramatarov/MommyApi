@@ -20,8 +20,6 @@
 
     public static class ServiceCollectionExtension
     {
-
-
         public static AppSettings GetApplicationSettings(
             this IServiceCollection services,
             IConfiguration configuration)

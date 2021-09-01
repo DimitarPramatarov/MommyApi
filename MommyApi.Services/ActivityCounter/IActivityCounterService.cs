@@ -7,8 +7,5 @@
         Task PostCount();
 
         Task AnswerCount();
-
-        Task SubAnswerCount();
-
     }
 }

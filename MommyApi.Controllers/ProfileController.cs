@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using MommyApi.Models.RequestModels;
+    using MommyApi.Models.ResponseModels;
     using MommyApi.Services.Profile;
     using System.Threading.Tasks;
 
@@ -16,9 +17,9 @@
 
         [HttpGet]
         [Route(nameof(ProfileDetails))]
-        public async Task<ActionResult> ProfileDetails(string profileId)
+        public async Task<ActionResult<ProfileResponseModel>> ProfileDetails(string profileId)
         {
-            var result = this.profileService.ProfileDetails(profileId);
+            var result = await this.profileService.ProfileDetails(profileId);
 
             if(result == null)
             {
