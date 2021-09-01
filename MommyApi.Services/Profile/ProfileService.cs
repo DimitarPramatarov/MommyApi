@@ -27,6 +27,9 @@
             {
                 UserId = userId,
                 Username = username,
+                Asnwers = 0,
+                Follows = 0,
+                Posts = 0,
             };
 
             if(profile == null)

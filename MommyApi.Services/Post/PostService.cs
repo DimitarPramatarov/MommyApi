@@ -11,23 +11,27 @@
     using System.Collections.Generic;
     using MommyApi.AppInfrastructure.Services;
     using Microsoft.EntityFrameworkCore;
+    using MommyApi.Services.ActivityCounter;
 
     public class PostService : IPostService
     {
         private readonly MommyApiDbContext dbContext;
         private readonly ICurrentUserService currentUserService;
+        private readonly IActivityCounterService activityCounterService;
 
         public PostService(MommyApiDbContext dbContext,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            IActivityCounterService activityCounterService)
         {
             this.dbContext = dbContext;
             this.currentUserService = currentUserService;
+            this.activityCounterService = activityCounterService;
         }
 
 
         public async Task<string> CreatePost(CreatePost createPost)
         {
-            var userId = currentUserService.GetId();
+            var userId = this.currentUserService.GetId();
 
             var newPost = new Post
             {
@@ -37,8 +41,9 @@
                 UserId = userId
             };
 
-           await dbContext.AddAsync(newPost);
-           await dbContext.SaveChangesAsync();
+           await this.dbContext.AddAsync(newPost);
+           await this.dbContext.SaveChangesAsync();
+           await this.activityCounterService.PostCount();
 
 
             return "Your post is created!";
@@ -73,9 +78,9 @@
 
         public async Task<IEnumerable<PostResponseModel>> MyPosts()
         {
-            var userId = currentUserService.GetId();
+            var userId = this.currentUserService.GetId();
 
-            var myPosts = await dbContext.Posts
+            var myPosts = await this.dbContext.Posts
                 .Where(x => x.UserId == userId && x.IsDeleted == false)
                 .ToListAsync();
 
@@ -118,7 +123,7 @@
 
         public async Task<bool> SetPostAsAnswered(int postId)
         {
-            var userId = currentUserService.GetId();
+            var userId = this.currentUserService.GetId();
 
             var post = await this.dbContext.Posts
                 .Where(x => x.PostId == postId)
@@ -131,14 +136,14 @@
             
             post.Answered = true;
 
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
 
         public async Task<bool> DeletePost(int postId)
         {
-            var userId = currentUserService.GetId();
+            var userId = this.currentUserService.GetId();
 
             var post = await this.dbContext.Posts.Where(x => x.PostId == postId).FirstOrDefaultAsync();
 
@@ -155,7 +160,7 @@
         public async Task<bool> UpdatePost(int postId, string description)
         {
             var answer = await this.dbContext.Posts.Where(x => x.PostId == postId).FirstOrDefaultAsync();
-            var userId = currentUserService.GetUserName();
+            var userId = this.currentUserService.GetUserName();
 
             if (userId != answer.CreatedBy)
             {
@@ -163,7 +168,7 @@
             }
 
             answer.Description = description;
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }

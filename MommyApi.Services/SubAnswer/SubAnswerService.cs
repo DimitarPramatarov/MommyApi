@@ -9,18 +9,22 @@
     using MommyApi.Data.Models;
     using MommyApi.Models.RequestModels;
     using MommyApi.Models.ResponseModels;
+    using MommyApi.Services.ActivityCounter;
     using MommyApi.Services.SubAsnwer;
 
     public class SubAnswerService : ISubAnswerService
     {
         private readonly MommyApiDbContext dbContext;
         private readonly ICurrentUserService currentUserService;
+        private readonly IActivityCounterService activityCounterService;
 
         public SubAnswerService(MommyApiDbContext dbContext,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            IActivityCounterService activityCounterService)
         {
             this.dbContext = dbContext;
             this.currentUserService = currentUserService;
+            this.activityCounterService = activityCounterService;
         }
     
         public async Task<string> CreateSubAnswer(SubAnswerRequestModel requestModel)
@@ -39,8 +43,9 @@
                 
             };
 
-            await dbContext.AddAsync(answer);
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.AddAsync(answer);
+            await this.dbContext.SaveChangesAsync();
+            await this.activityCounterService.SubAnswerCount();
 
             return "Answer is created";
         }
@@ -83,7 +88,7 @@
             }
 
             subAnswer.Description = description;
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
@@ -100,7 +105,7 @@
             }
 
             subAnswer.IsDeleted = true;
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
             
             return true;
         }

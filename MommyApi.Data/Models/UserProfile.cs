@@ -15,10 +15,13 @@
 
         public string Description { get; set; }
 
+        [Required]
         public int Asnwers { get; set; }
 
+        [Required]
         public int Posts { get; set; }
 
+        [Required]
         public int Follows { get; set; }
 
         public string MainPhotoUrl { get; set; }

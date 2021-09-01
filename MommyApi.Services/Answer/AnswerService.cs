@@ -6,6 +6,7 @@
     using MommyApi.Data.Models;
     using MommyApi.Models.RequestModels;
     using MommyApi.Models.ResponseModels;
+    using MommyApi.Services.ActivityCounter;
     using MommyApi.Services.Interfaces;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,12 +16,15 @@
     {
         private readonly MommyApiDbContext dbContext;
         private readonly ICurrentUserService currentUserService;
+        private readonly IActivityCounterService activityCounterService;
 
         public AnswerService(MommyApiDbContext dbContext,
-            ICurrentUserService currentUserService)
+            ICurrentUserService currentUserService,
+            IActivityCounterService activityCounterService)
         {
             this.dbContext = dbContext;
             this.currentUserService = currentUserService;
+            this.activityCounterService = activityCounterService;
         }
 
         public async Task<string> CreateAnswer(AnswerRequestModel model)
@@ -44,8 +48,9 @@
                 PostId = model.PostId,
             };
 
-            await dbContext.AddAsync(answer);
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.AddAsync(answer);
+            await this.dbContext.SaveChangesAsync();
+            await this.activityCounterService.AnswerCount();
 
 
             return "Answer is created";
@@ -79,7 +84,7 @@
 
         private async Task<bool> CheckIfUserAlreadyAnswered(int postId)
         {
-            var userName = currentUserService.GetUserName();
+            var userName = this.currentUserService.GetUserName();
 
             var result = await this.dbContext.Answers
                 .Where(x => x.PostId == postId)
@@ -97,7 +102,7 @@
         public async Task<bool> UpdateAnswer(int answerId, string description)
         {
             var answer = await this.dbContext.Answers.Where(x => x.AnswerId == answerId).FirstOrDefaultAsync();
-            var userId =  currentUserService.GetUserName();
+            var userId =  this.currentUserService.GetUserName();
 
             if(userId != answer.CreatedBy)
             {
@@ -105,7 +110,7 @@
             }
 
             answer.Text = description;
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }
@@ -113,7 +118,7 @@
         public async Task<bool> DeleteAnswer(int answerId)
         {
             var answer = await this.dbContext.Answers.Where(x => x.AnswerId == answerId).FirstOrDefaultAsync();
-            var userId = currentUserService.GetUserName();
+            var userId = this.currentUserService.GetUserName();
 
 
             if (userId != answer.CreatedBy)
