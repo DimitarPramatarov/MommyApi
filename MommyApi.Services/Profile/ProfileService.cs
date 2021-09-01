@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using MommyApi.Models.ResponseModels;
+    using MommyApi.Models.RequestModels;
 
     public class ProfileService : IProfileService
     {
@@ -62,20 +63,20 @@
         }
 
          
-        public  async Task<bool> UpdateProfile(string userId, string description, string mainPhotoUrl)
+        public  async Task<bool> UpdateProfile(UpdateProfileRequestModel requestModel)
         {
             var currentUserId = currentUserService.GetId();
 
             var profile = await this.dbContext.UserProfiles
-                .Where(x => x.UserId == userId).FirstOrDefaultAsync();
+                .Where(x => x.UserId == requestModel.UserId).FirstOrDefaultAsync();
 
-            if(currentUserId != userId)
+            if(currentUserId != requestModel.UserId)
             {
                 return false;
             }
 
-            profile.Description = description;
-            profile.MainPhotoUrl = mainPhotoUrl;
+            profile.Description = requestModel.Descritpion;
+            profile.MainPhotoUrl = requestModel.Descritpion;
 
             await dbContext.SaveChangesAsync();
              

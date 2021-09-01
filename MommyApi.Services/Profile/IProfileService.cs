@@ -1,5 +1,6 @@
 ﻿namespace MommyApi.Services.Profile
 {
+    using MommyApi.Models.RequestModels;
     using MommyApi.Models.ResponseModels;
     using System.Threading.Tasks;
 
@@ -7,7 +8,7 @@
     {
         Task<bool> CreateProfileByUser(string username, string userId);
 
-        Task<bool> UpdateProfile(string description, string mainPhotoUrl);
+        Task<bool> UpdateProfile(UpdateProfileRequestModel requestModel);
 
         Task<ProfileResponseModel> ProfileDetails(string profileId);
     }
