@@ -26,6 +26,8 @@
 
         public DbSet<UserProfile> UserProfiles {get; init;}
 
+        public DbSet<SubAnswer> SubAnswers { get; init; }
+
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             this.ApplyAuditInformation();
@@ -44,6 +46,15 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            builder
+                .Entity<SubAnswer>()
+                .HasQueryFilter(x => x.IsDeleted)
+                .HasOne(x => x.Answer)
+                .WithMany(x => x.SubAnswers)
+                .HasForeignKey(x => x.AnswerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder
                 .Entity<Answer>()
                 .HasQueryFilter(x => !x.IsDeleted)

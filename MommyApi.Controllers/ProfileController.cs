@@ -1,6 +1,7 @@
 ﻿namespace MommyApi.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using MommyApi.Models.RequestModels;
     using MommyApi.Services.Profile;
     using System.Threading.Tasks;
 
@@ -30,9 +31,9 @@
 
         [HttpPut]
         [Route(nameof(UpdateProfile))]
-        public async Task<ActionResult> UpdateProfile(string description, string mainPhotoUrl)
+        public async Task<ActionResult> UpdateProfile(UpdateProfileRequestModel requestModel)
         {
-            var result = await this.profileService.UpdateProfile(description, mainPhotoUrl);
+            var result = await this.profileService.UpdateProfile(requestModel);
 
             if(result is false)
             {
