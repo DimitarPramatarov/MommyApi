@@ -52,9 +52,24 @@ namespace MommyApi.Services.Administartion
             throw new System.NotImplementedException();
         }
 
-        public Task<string> UpdateUserProfile(UpdateProfileRequestModel requestModel)
+        public async Task<string> UpdateUserProfile(UpdateProfileRequestModel requestModel)
         {
-            throw new System.NotImplementedException();
+            var user = await this.dbContext.UserProfiles.FindAsync(requestModel.UserId);
+
+            if(user == null)
+            {
+                return GlobalConstants.NotFound;
+            }
+
+            if(requestModel.Descritpion != null)
+                   user.Description = requestModel.Descritpion;
+            
+            if(requestModel.MainPhotoUrl != null)
+                   user.MainPhotoUrl= requestModel.MainPhotoUrl;
+
+            await this.dbContext.SaveChangesAsync();
+
+            return "Profile is update";
         }
 
         public async Task<string> EditPost(int id, string description)

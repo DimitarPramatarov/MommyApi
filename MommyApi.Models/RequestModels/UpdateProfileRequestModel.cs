@@ -9,7 +9,7 @@
         public string UserId { get; set; }
 
         public string Descritpion { get; set; }
-
+        
         public string MainPhotoUrl { get; set; }
     }
 }

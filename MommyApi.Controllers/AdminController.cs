@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using MommyApi.Models.RequestModels;
     using MommyApi.Services.Administartion;
     using System.Threading.Tasks;
 
@@ -86,6 +87,22 @@
             await this.service.EditSubAnswer(userId, description);
 
             return Ok("SubAnswer is edited");
+        }
+
+        [HttpPut]
+        [Route(nameof(UpdateUserProfile))]
+        public async Task<ActionResult> UpdateUserProfile(UpdateProfileRequestModel requestModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await this.service.UpdateUserProfile(requestModel);
+
+            return Ok(result);
+
+            
         }
     }
 }
