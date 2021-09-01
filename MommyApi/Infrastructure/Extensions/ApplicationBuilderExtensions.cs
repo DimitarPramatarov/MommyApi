@@ -4,9 +4,12 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using MommyApi.Data;
+    using MommyApi.Data.Seeding;
+    using System;
 
     public static class ApplicationBuilderExtensions
     {
+
         public static IApplicationBuilder UseSwaggerUI(this IApplicationBuilder app)
         => app
             .UseSwagger()
@@ -24,6 +27,15 @@
             var dbContext = services.ServiceProvider.GetService<MommyApiDbContext>();
 
             dbContext.Database.Migrate();
+        }
+
+        public static void RoleSeeder(this IApplicationBuilder app, IServiceProvider serviceProvider)
+        {
+            using var services = app.ApplicationServices.CreateScope();
+
+            var dbContext = services.ServiceProvider.GetService<MommyApiDbContext>();
+
+           
         }
     }
 }

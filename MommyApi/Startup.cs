@@ -7,6 +7,8 @@ namespace MommyApi
     using Microsoft.AspNetCore.Hosting;
     using MommyApi.Infrastructure.Extensions;
     using System.Text.Json.Serialization;
+    using MommyApi.Data;
+    using MommyApi.Data.Seeding;
 
     public class Startup
     {
@@ -36,6 +38,14 @@ namespace MommyApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+              using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<MommyApiDbContext>();
+                var roleSeed = new RoleSeeder();
+                    roleSeed.Seed(dbContext, serviceScope.ServiceProvider);
+                    dbContext.SaveChanges();
+               
+            }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,6 +65,7 @@ namespace MommyApi
                     endpoints.MapControllers();
                 })
                 .ApplyMigrations();
+                
        
         }
     }
