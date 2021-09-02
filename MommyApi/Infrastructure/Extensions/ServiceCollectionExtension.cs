@@ -1,4 +1,6 @@
-﻿namespace MommyApi.Infrastructure.Extensions
+﻿using MommyApi.Services.Administartion;
+
+namespace MommyApi.Infrastructure.Extensions
 {
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
@@ -91,6 +93,7 @@
             .AddTransient<IAnswerService, AnswerService>()
             .AddTransient<ISubAnswerService, SubAnswerService>()
             .AddTransient<IActivityCounterService, ActivityCounterService>()
+             .AddTransient<IAdministartionService, AdministrationService>()
             .AddTransient<IProfileService, ProfileService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)

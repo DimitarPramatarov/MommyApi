@@ -11,4 +11,8 @@
     <ProjectReference Include="..\MommyApi.Models\MommyApi.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Votes\" />
+  </ItemGroup>
+
 </Project>
