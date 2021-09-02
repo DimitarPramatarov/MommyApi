@@ -1,7 +1,7 @@
 ﻿namespace MommyApi.Services.Interfaces
 {
-    using MommyApi.Models.RequestModels;
-    using MommyApi.Models.ResponseModels;
+    using Models.RequestModels;
+    using Models.ResponseModels;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -14,5 +14,7 @@
         Task<bool> UpdateAnswer(int answerId, string description);
 
         Task<bool> DeleteAnswer(int answerId);
+
+        Task<string> SetCorrectAnswer(int asnwerId);
     }
 }

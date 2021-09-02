@@ -1,13 +1,13 @@
-﻿namespace MommyApi.Services
+﻿namespace MommyApi.Services.Answer
 {
     using Microsoft.EntityFrameworkCore;
     using MommyApi.AppInfrastructure.Services;
-    using MommyApi.Data;
+    using Data;
     using MommyApi.Data.Models;
-    using MommyApi.Models.RequestModels;
-    using MommyApi.Models.ResponseModels;
-    using MommyApi.Services.ActivityCounter;
-    using MommyApi.Services.Interfaces;
+    using Models.RequestModels;
+    using Models.ResponseModels;
+    using ActivityCounter;
+    using Interfaces;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -26,18 +26,18 @@
             this.currentUserService = currentUserService;
             this.activityCounterService = activityCounterService;
         }
-
+        
         public async Task<string> CreateAnswer(AnswerRequestModel model)
         {
 
-            if(model == null)
+            if (model == null)
             {
                 return "Answer is not created!";
             }
 
             var alreadyAnswered = await CheckIfUserAlreadyAnswered(model.PostId);
 
-            if(alreadyAnswered == true)
+            if (alreadyAnswered)
             {
                 return "User already created answer!";
             }
@@ -67,7 +67,7 @@
 
             IList<AnswerResponseModel> responeAnswers = new List<AnswerResponseModel>();
 
-            foreach(var item in answers)
+            foreach (var item in answers)
             {
                 var answer = new AnswerResponseModel
                 {
@@ -91,7 +91,7 @@
                 .Select(x => x.CreatedBy == userName)
                 .ToListAsync();
 
-            if(result.Count == 0)
+            if (result.Count == 0)
             {
                 return false;
             }
@@ -102,9 +102,9 @@
         public async Task<bool> UpdateAnswer(int answerId, string description)
         {
             var answer = await this.dbContext.Answers.Where(x => x.AnswerId == answerId).FirstOrDefaultAsync();
-            var userId =  this.currentUserService.GetUserName();
+            var userId = this.currentUserService.GetUserName();
 
-            if(userId != answer.CreatedBy)
+            if (userId != answer.CreatedBy)
             {
                 return false;
             }
@@ -130,6 +130,25 @@
 
             return true;
 
+        }
+
+        public async Task<string> SetCorrectAnswer(int asnwerId)
+        {
+            var user = this.currentUserService.GetId();
+            
+            var answer = await this.dbContext.Answers.FindAsync(asnwerId);
+
+            var postOwner = await this.dbContext.Posts.Where(x => x.PostId == answer.PostId).FirstOrDefaultAsync();
+
+            if (postOwner.UserId != user)
+            {
+                return "This user cannot correct answer";
+            }
+
+            answer.CorrectAnswer = true;
+            await this.dbContext.SaveChangesAsync();
+
+            return "Answer is correct";
         }
     }
 }

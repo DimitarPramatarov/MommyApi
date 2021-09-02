@@ -1,9 +1,9 @@
 ﻿namespace MommyApi.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using MommyApi.Models.RequestModels;
-    using MommyApi.Models.ResponseModels;
-    using MommyApi.Services.Interfaces;
+    using Models.RequestModels;
+    using Models.ResponseModels;
+    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -48,7 +48,7 @@
                 return BadRequest("This user cannot update the asnwer");
             }
 
-            return Ok(result);
+            return Ok(true);
         }
 
         [HttpPost]
@@ -61,6 +61,18 @@
             {
                 return BadRequest("This user cannot delete answer");
             }
+
+            return Ok(true);
+        }
+
+        //TODO : Add SetCorrectAnswer
+
+        [HttpPut]
+        [Route(nameof(SetCorrectAnswer))]
+        public async Task<ActionResult> SetCorrectAnswer(int answerId)
+        {
+           
+            var result = await this.answerService.SetCorrectAnswer(answerId);
 
             return Ok(result);
         }
