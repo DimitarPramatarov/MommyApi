@@ -146,6 +146,7 @@
             }
 
             answer.CorrectAnswer = true;
+            postOwner.Answered = true;
             await this.dbContext.SaveChangesAsync();
 
             return "Answer is correct";
