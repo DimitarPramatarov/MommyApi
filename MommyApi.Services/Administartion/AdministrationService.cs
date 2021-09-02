@@ -97,7 +97,7 @@ namespace MommyApi.Services.Administartion
                 return GlobalConstants.NotFound;
             }
 
-            post.Text = description;
+            post.Description = description;
             await this.dbContext.SaveChangesAsync();
 
             return "Answer is edited";

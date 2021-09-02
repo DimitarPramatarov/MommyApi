@@ -20,7 +20,7 @@ namespace MommyApi.Data.Seeding
 
         private static void SeedRole(RoleManager<IdentityRole> roleManger, string roleName)
         {
-            var role = roleManger.FindByIdAsync(roleName).GetAwaiter().GetResult();
+            var role = roleManger.FindByNameAsync(roleName).GetAwaiter().GetResult();
 
             if(role is null)
             {

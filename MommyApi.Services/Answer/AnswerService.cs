@@ -44,7 +44,7 @@
 
             var answer = new Answer
             {
-                Text = model.Text,
+                Description = model.Text,
                 PostId = model.PostId,
             };
 
@@ -71,7 +71,7 @@
             {
                 var answer = new AnswerResponseModel
                 {
-                    Text = item.Text,
+                    Text = item.Description,
                     Username = item.CreatedBy,
                     CreatedOn = item.CreatedOn
                 };
@@ -109,7 +109,7 @@
                 return false;
             }
 
-            answer.Text = description;
+            answer.Description = description;
             await this.dbContext.SaveChangesAsync();
 
             return true;
