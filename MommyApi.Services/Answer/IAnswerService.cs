@@ -15,6 +15,6 @@
 
         Task<bool> DeleteAnswer(int answerId);
 
-        Task<string> SetCorrectAnswer(int asnwerId);
+        Task<string> AcceptAnswer(int asnwerId);
     }
 }

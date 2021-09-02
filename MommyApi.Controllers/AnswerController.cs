@@ -72,7 +72,7 @@
         public async Task<ActionResult> SetCorrectAnswer(int answerId)
         {
            
-            var result = await this.answerService.SetCorrectAnswer(answerId);
+            var result = await this.answerService.AcceptAnswer(answerId);
 
             return Ok(result);
         }

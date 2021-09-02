@@ -132,7 +132,7 @@
 
         }
 
-        public async Task<string> SetCorrectAnswer(int asnwerId)
+        public async Task<string> AcceptAnswer(int asnwerId)
         {
             var user = this.currentUserService.GetId();
             
@@ -151,5 +151,6 @@
 
             return "Answer is correct";
         }
+
     }
 }
