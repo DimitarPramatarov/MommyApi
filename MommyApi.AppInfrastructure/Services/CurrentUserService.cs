@@ -1,4 +1,6 @@
-﻿namespace MommyApi.AppInfrastructure.Services
+﻿using System;
+
+namespace MommyApi.AppInfrastructure.Services
 {
     using Microsoft.AspNetCore.Http;
     using Extensions;

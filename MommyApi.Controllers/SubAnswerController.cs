@@ -1,4 +1,6 @@
-﻿namespace MommyApi.Controllers
+﻿using System;
+
+namespace MommyApi.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using MommyApi.Models.RequestModels;
@@ -33,13 +35,13 @@
 
         [HttpGet]
         [Route(nameof(GetSubAnswers))]
-        public async Task<IEnumerable<SubAnswerResponseModel>> GetSubAnswers(int subAnswerId)
+        public async Task<IEnumerable<SubAnswerResponseModel>> GetSubAnswers(Guid subAnswerId)
         => await this.subAnswerService.GetSubAnswers(subAnswerId);
 
 
         [HttpPut]
         [Route(nameof(UpdateSubAnswer))]
-        public async Task<ActionResult> UpdateSubAnswer(int subAnswerId, string description)
+        public async Task<ActionResult> UpdateSubAnswer(Guid subAnswerId, string description)
         {
             var result = await this.subAnswerService.UpdateSubAnswer(subAnswerId, description);
 
@@ -53,7 +55,7 @@
 
         [HttpPost]
         [Route(nameof(DeleteSubAnswer))]
-        public async Task<ActionResult> DeleteSubAnswer(int subAsnwerId)
+        public async Task<ActionResult> DeleteSubAnswer(Guid subAsnwerId)
         {
             var result = await this.subAnswerService.DeleteSubAnswer(subAsnwerId);
 

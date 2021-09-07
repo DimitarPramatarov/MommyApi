@@ -10,8 +10,8 @@ using MommyApi.Data;
 namespace MommyApi.Data.Migrations
 {
     [DbContext(typeof(MommyApiDbContext))]
-    [Migration("20210901091326_subAnswer")]
-    partial class subAnswer
+    [Migration("20210906224002_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -154,10 +154,9 @@ namespace MommyApi.Data.Migrations
 
             modelBuilder.Entity("MommyApi.Data.Models.Answer", b =>
                 {
-                    b.Property<int>("AnswerId")
+                    b.Property<Guid>("AnswerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("CorrectAnswer")
                         .HasColumnType("bit");
@@ -174,6 +173,9 @@ namespace MommyApi.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -183,12 +185,8 @@ namespace MommyApi.Data.Migrations
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("AnswerId");
 
@@ -199,10 +197,9 @@ namespace MommyApi.Data.Migrations
 
             modelBuilder.Entity("MommyApi.Data.Models.Post", b =>
                 {
-                    b.Property<int>("PostId")
+                    b.Property<Guid>("PostId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Answered")
                         .HasColumnType("bit");
@@ -220,7 +217,6 @@ namespace MommyApi.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -249,13 +245,12 @@ namespace MommyApi.Data.Migrations
 
             modelBuilder.Entity("MommyApi.Data.Models.SubAnswer", b =>
                 {
-                    b.Property<int>("SubAnswerId")
+                    b.Property<Guid>("SubAnswerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AnswerId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("AnswerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -368,6 +363,59 @@ namespace MommyApi.Data.Migrations
                     b.HasIndex("UserProfileUserId");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("MommyApi.Data.Models.Vote", b =>
+                {
+                    b.Property<Guid>("VoteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AnswerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SubAnswerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("VoteForId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("VoteType")
+                        .HasColumnType("int");
+
+                    b.HasKey("VoteId");
+
+                    b.HasIndex("AnswerId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("SubAnswerId");
+
+                    b.ToTable("Votes");
                 });
 
             modelBuilder.Entity("MommyApi.Data.UserProfile", b =>
@@ -504,14 +552,38 @@ namespace MommyApi.Data.Migrations
                     b.Navigation("UserProfile");
                 });
 
+            modelBuilder.Entity("MommyApi.Data.Models.Vote", b =>
+                {
+                    b.HasOne("MommyApi.Data.Models.Answer", null)
+                        .WithMany("Votes")
+                        .HasForeignKey("AnswerId");
+
+                    b.HasOne("MommyApi.Data.Models.Post", null)
+                        .WithMany("Votes")
+                        .HasForeignKey("PostId");
+
+                    b.HasOne("MommyApi.Data.Models.SubAnswer", null)
+                        .WithMany("Votes")
+                        .HasForeignKey("SubAnswerId");
+                });
+
             modelBuilder.Entity("MommyApi.Data.Models.Answer", b =>
                 {
                     b.Navigation("SubAnswers");
+
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("MommyApi.Data.Models.Post", b =>
                 {
                     b.Navigation("Answers");
+
+                    b.Navigation("Votes");
+                });
+
+            modelBuilder.Entity("MommyApi.Data.Models.SubAnswer", b =>
+                {
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("MommyApi.Data.Models.User", b =>

@@ -1,20 +1,21 @@
-﻿namespace MommyApi.Services.Interfaces
+﻿namespace MommyApi.Services.Answer
 {
-    using Models.RequestModels;
-    using Models.ResponseModels;
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Models.RequestModels;
+    using Models.ResponseModels;
 
     public interface IAnswerService
     {
         Task<string> CreateAnswer(AnswerRequestModel requestModel);
 
-        Task<IEnumerable<AnswerResponseModel>> GetAnswers(int postId);
+        Task<IEnumerable<AnswerResponseModel>> GetAnswers(Guid postId);
 
-        Task<bool> UpdateAnswer(int answerId, string description);
+        Task<bool> UpdateAnswer(Guid answerId, string description);
 
-        Task<bool> DeleteAnswer(int answerId);
+        Task<bool> DeleteAnswer(Guid answerId);
 
-        Task<string> AcceptAnswer(int asnwerId);
+        Task<string> AcceptAnswer(Guid asnwerId);
     }
 }

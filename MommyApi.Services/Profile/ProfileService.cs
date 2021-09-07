@@ -1,12 +1,12 @@
 ﻿namespace MommyApi.Services.Profile
 {
     using MommyApi.AppInfrastructure.Services;
-    using MommyApi.Data;
+    using Data;
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using MommyApi.Models.ResponseModels;
-    using MommyApi.Models.RequestModels;
+    using Models.ResponseModels;
+    using Models.RequestModels;
 
     public class ProfileService : IProfileService
     {

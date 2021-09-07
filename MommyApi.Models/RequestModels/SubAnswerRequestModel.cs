@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace MommyApi.Models.RequestModels
+﻿namespace MommyApi.Models.RequestModels
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class SubAnswerRequestModel
     {
         [Required]
-        public int AnswerId { get; set; }
+        public Guid AnswerId { get; set; }
 
         [Required]
         public string Descripton { get; set; }

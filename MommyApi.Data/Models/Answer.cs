@@ -1,4 +1,7 @@
-﻿namespace MommyApi.Data.Models
+﻿using System;
+using Newtonsoft.Json;
+
+namespace MommyApi.Data.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -6,10 +9,10 @@
     public class Answer : BasePublish
     {
 
-        public int AnswerId { get; set; }
+        public Guid AnswerId { get; set; } = new Guid();
 
         [Required]
-        public int PostId { get; set; }
+        public Guid PostId { get; set; }
 
         public Post Post { get; set; }
 

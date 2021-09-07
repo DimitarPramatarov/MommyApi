@@ -1,7 +1,8 @@
 ﻿namespace MommyApi.Models.RequestModels
 {
     using System.ComponentModel.DataAnnotations;
-    
+    using System;
+
     public class UpdateProfileRequestModel
     {
 

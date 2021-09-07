@@ -1,12 +1,13 @@
 ﻿namespace MommyApi.Controllers
 {
+    using System;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using MommyApi.Models.RequestModels;
-    using MommyApi.Services.Administartion;
+    using Models.RequestModels;
+    using Services.Administartion;
     using System.Threading.Tasks;
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class AdminController : ApiController
     {
         private readonly IAdministartionService service;
@@ -18,7 +19,7 @@
 
         [HttpPost]
         [Route(nameof(AddUserToRole))]
-        public async Task<ActionResult> AddUserToRole(int userId, string role)
+        public async Task<ActionResult> AddUserToRole(Guid userId, string role)
         {
             if(role is null)
             {
@@ -32,7 +33,7 @@
 
         [HttpPut]
         [Route(nameof(EditUserRole))]
-        public async Task<ActionResult> EditUserRole(int userId, string role)
+        public async Task<ActionResult> EditUserRole(Guid userId, string role)
         {
             if (role is null)
             {
@@ -46,23 +47,21 @@
 
         [HttpPut]
         [Route(nameof(EditPost))]
-        [Authorize(Roles = "Moderator")]
-        public async Task<ActionResult> EditPost(int userId, string description)
+        public async Task<ActionResult> EditPost(Guid postId, string description)
         {
             if (description is null)
             {
                 return BadRequest();
             }
 
-            await this.service.EditPost(userId, description);
+            await this.service.EditPost(postId, description);
 
             return Ok("Post is edited");
         }
 
         [HttpPut]
         [Route(nameof(EditAnswer))]
-        [Authorize(Roles = "Moderator")]
-        public async Task<ActionResult> EditAnswer(int userId, string description)
+        public async Task<ActionResult> EditAnswer(Guid userId, string description)
         {
             if (description is null)
             {
@@ -77,7 +76,7 @@
         [HttpPut]
         [Route(nameof(EditSubAnswer))]
         [Authorize(Roles = "Moderator")]
-        public async Task<ActionResult> EditSubAnswer(int userId, string description)
+        public async Task<ActionResult> EditSubAnswer(Guid userId, string description)
         {
             if (description is null)
             {

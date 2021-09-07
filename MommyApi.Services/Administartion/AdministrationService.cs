@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MommyApi.Common;
 using MommyApi.Data;
@@ -23,7 +24,7 @@ namespace MommyApi.Services.Administartion
             this.userManager = userManager;
         }
         //TODO: Is there a way to refactor this ?? 
-        public async Task AddUserToRole(int userId, string role)
+        public async Task AddUserToRole(Guid userId, string role)
         {
             var user = await this.dbContext.Users.FindAsync(userId);
 
@@ -32,7 +33,7 @@ namespace MommyApi.Services.Administartion
 
         }
 
-        public async Task<string> EditUserRole(int userId, string role)
+        public async Task<string> EditUserRole(Guid userId, string role)
         {
             var user = await this.dbContext.Users.FindAsync(userId);
 
@@ -47,7 +48,7 @@ namespace MommyApi.Services.Administartion
             return $"User is edited in {role} role";
         }
        
-        public Task<bool> SoftDelete(int id)
+        public Task<bool> SoftDelete(Guid id)
         {
             throw new System.NotImplementedException();
         }
@@ -72,7 +73,7 @@ namespace MommyApi.Services.Administartion
             return "Profile is update";
         }
 
-        public async Task<string> EditPost(int id, string description)
+        public async Task<string> EditPost(Guid id, string description)
         {
             var post = await this.dbContext.Posts.FindAsync(id);
 
@@ -88,7 +89,7 @@ namespace MommyApi.Services.Administartion
             
         }
 
-        public async Task<string> EditAsnwer(int id, string description)
+        public async Task<string> EditAsnwer(Guid id, string description)
         {
             var post = await this.dbContext.Answers.FindAsync(id);
 
@@ -103,7 +104,7 @@ namespace MommyApi.Services.Administartion
             return "Answer is edited";
         }
 
-        public async Task<string> EditSubAnswer(int id, string description)
+        public async Task<string> EditSubAnswer(Guid id, string description)
         {
             var post = await this.dbContext.SubAnswers.FindAsync(id);
 

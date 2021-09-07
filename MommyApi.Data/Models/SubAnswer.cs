@@ -1,13 +1,15 @@
 ﻿namespace MommyApi.Data.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using System;
+
 
     public class SubAnswer : BasePublish
     {
-        public int SubAnswerId { get; set; }
+        public Guid SubAnswerId { get; set; } = new Guid();
 
         [Required]
-        public int AnswerId { get; set; }
+        public Guid AnswerId { get; set; }
 
         public Answer Answer { get; set; }
 

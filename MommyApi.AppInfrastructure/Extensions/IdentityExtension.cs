@@ -1,4 +1,6 @@
-﻿namespace MommyApi.AppInfrastructure.Extensions
+﻿using System;
+
+namespace MommyApi.AppInfrastructure.Extensions
 {
     using System.Linq;
     using System.Security.Claims;

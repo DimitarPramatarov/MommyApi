@@ -1,13 +1,16 @@
-﻿namespace MommyApi.Data.Models
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace MommyApi.Data.Models
 {
     using System;
-    using MommyApi.Data.Models.Base;
+    using Base;
 
     public abstract class BasePublish : IDeletableEntity
     {
         public string Description { get; set; }
 
-        public int Votes { get; set; }
+        public IEnumerable<Vote> Votes { get; set; } = new HashSet<Vote>();
 
         public DateTime CreatedOn { get; set; }
 

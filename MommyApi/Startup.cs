@@ -5,10 +5,10 @@ namespace MommyApi
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using MommyApi.Infrastructure.Extensions;
+    using Infrastructure.Extensions;
     using System.Text.Json.Serialization;
-    using MommyApi.Data;
-    using MommyApi.Data.Seeding;
+    using Data;
+    using Data.Seeding;
 
     public class Startup
     {

@@ -8,7 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
     using Models.Base;
-    using MommyApi.AppInfrastructure.Services;
+    using AppInfrastructure.Services;
 
     public class MommyApiDbContext : IdentityDbContext<User>
     {
@@ -27,6 +27,8 @@
         public DbSet<UserProfile> UserProfiles {get; init;}
 
         public DbSet<SubAnswer> SubAnswers { get; init; }
+
+        public DbSet<Vote> Votes { get; init; }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {

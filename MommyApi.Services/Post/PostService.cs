@@ -1,17 +1,17 @@
-﻿namespace MommyApi.Services
+﻿
+namespace MommyApi.Services.Post
 {
-    using System.Threading.Tasks;
-    using MommyApi.Services.Interfaces;
-    using MommyApi.Data;
-    using MommyApi.Data.Models;
-    using MommyApi.Models.RequestModels;
     using System;
-    using System.Linq;
-    using MommyApi.Models.ResponseModels;
     using System.Collections.Generic;
-    using MommyApi.AppInfrastructure.Services;
+    using System.Linq;
+    using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using MommyApi.Services.ActivityCounter;
+    using MommyApi.AppInfrastructure.Services;
+    using Data;
+    using Models.RequestModels;
+    using Models.ResponseModels;
+    using ActivityCounter;
+    using Interfaces;
 
     public class PostService : IPostService
     {
@@ -33,7 +33,7 @@
         {
             var userId = this.currentUserService.GetId();
 
-            var newPost = new Post
+            var newPost = new Data.Models.Post
             {
                 Title = createPost.Title,
                 Description = createPost.Description,
@@ -102,7 +102,7 @@
             return result;
         }
 
-        public async Task<PostDetailsResponseModel> PostDetails(int postId)
+        public async Task<PostDetailsResponseModel> PostDetails(Guid postId)
         {
             var postDetails = await this.dbContext.Posts
                 .Where(x => x.PostId == postId && x.IsDeleted == false)
@@ -121,7 +121,7 @@
             return post;
         }
 
-        public async Task<bool> SetPostAsAnswered(int postId)
+        public async Task<bool> SetPostAsAnswered(Guid postId)
         {
             var userId = this.currentUserService.GetId();
 
@@ -141,7 +141,7 @@
             return true;
         }
 
-        public async Task<bool> DeletePost(int postId)
+        public async Task<bool> DeletePost(Guid postId)
         {
             var userId = this.currentUserService.GetId();
 
@@ -157,7 +157,7 @@
             return true;
         }
 
-        public async Task<bool> UpdatePost(int postId, string description)
+        public async Task<bool> UpdatePost(Guid postId, string description)
         {
             var answer = await this.dbContext.Posts.Where(x => x.PostId == postId).FirstOrDefaultAsync();
             var userId = this.currentUserService.GetUserName();

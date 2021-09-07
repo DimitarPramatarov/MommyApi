@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using MommyApi.AppInfrastructure.Services;
-    using MommyApi.Data;
+    using Data;
 
     public class ActivityCounterService : IActivityCounterService
     {

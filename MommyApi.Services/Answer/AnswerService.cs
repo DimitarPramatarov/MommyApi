@@ -1,4 +1,6 @@
-﻿namespace MommyApi.Services.Answer
+﻿using System;
+
+namespace MommyApi.Services.Answer
 {
     using Microsoft.EntityFrameworkCore;
     using MommyApi.AppInfrastructure.Services;
@@ -57,7 +59,7 @@
         }
 
 
-        public async Task<IEnumerable<AnswerResponseModel>> GetAnswers(int postId)
+        public async Task<IEnumerable<AnswerResponseModel>> GetAnswers(Guid postId)
         {
             var answers = await this.dbContext.Answers
                 .OrderBy(x => x.CreatedOn)
@@ -82,7 +84,7 @@
             return responeAnswers;
         }
 
-        private async Task<bool> CheckIfUserAlreadyAnswered(int postId)
+        private async Task<bool> CheckIfUserAlreadyAnswered(Guid postId)
         {
             var userName = this.currentUserService.GetUserName();
 
@@ -99,7 +101,7 @@
             return true;
         }
 
-        public async Task<bool> UpdateAnswer(int answerId, string description)
+        public async Task<bool> UpdateAnswer(Guid answerId, string description)
         {
             var answer = await this.dbContext.Answers.Where(x => x.AnswerId == answerId).FirstOrDefaultAsync();
             var userId = this.currentUserService.GetUserName();
@@ -115,7 +117,7 @@
             return true;
         }
 
-        public async Task<bool> DeleteAnswer(int answerId)
+        public async Task<bool> DeleteAnswer(Guid answerId)
         {
             var answer = await this.dbContext.Answers.Where(x => x.AnswerId == answerId).FirstOrDefaultAsync();
             var userId = this.currentUserService.GetUserName();
@@ -132,11 +134,11 @@
 
         }
 
-        public async Task<string> AcceptAnswer(int asnwerId)
+        public async Task<string> AcceptAnswer(Guid answerId)
         {
             var user = this.currentUserService.GetId();
             
-            var answer = await this.dbContext.Answers.FindAsync(asnwerId);
+            var answer = await this.dbContext.Answers.FindAsync(answerId);
 
             var postOwner = await this.dbContext.Posts.Where(x => x.PostId == answer.PostId).FirstOrDefaultAsync();
 

@@ -1,4 +1,7 @@
-﻿namespace MommyApi.Controllers
+﻿using System;
+using MommyApi.Services.Answer;
+
+namespace MommyApi.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using Models.RequestModels;
@@ -33,13 +36,13 @@
 
         [HttpGet]
         [Route(nameof(GetAnswers))]
-        public async Task<IEnumerable<AnswerResponseModel>> GetAnswers(int postId)
+        public async Task<IEnumerable<AnswerResponseModel>> GetAnswers(Guid postId)
         =>  await this.answerService.GetAnswers(postId);
 
         
         [HttpPut]
         [Route(nameof(UpdateAnswer))]
-        public async Task<ActionResult> UpdateAnswer(int answerId, string description)
+        public async Task<ActionResult> UpdateAnswer(Guid answerId, string description)
         {
             var result = await this.answerService.UpdateAnswer(answerId, description);
 
@@ -53,7 +56,7 @@
 
         [HttpPost]
         [Route(nameof(DeleteAnswer))]
-        public async Task<ActionResult> DeleteAnswer(int answerId)
+        public async Task<ActionResult> DeleteAnswer(Guid answerId)
         {
             var result = await this.answerService.DeleteAnswer(answerId);
 
@@ -69,7 +72,7 @@
 
         [HttpPut]
         [Route(nameof(SetCorrectAnswer))]
-        public async Task<ActionResult> SetCorrectAnswer(int answerId)
+        public async Task<ActionResult> SetCorrectAnswer(Guid answerId)
         {
            
             var result = await this.answerService.AcceptAnswer(answerId);

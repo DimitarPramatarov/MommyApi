@@ -2,21 +2,23 @@
 {
     using MommyApi.Models.RequestModels;
     using System.Threading.Tasks;
+    using System;
+
 
     public interface IAdministartionService
     {
-        Task<bool> SoftDelete(int id);
+        Task<bool> SoftDelete(Guid id);
 
-        Task AddUserToRole(int userId, string role);
+        Task AddUserToRole(Guid userId, string role);
 
-        Task<string> EditUserRole(int userId, string role);
+        Task<string> EditUserRole(Guid userId, string role);
 
         Task<string> UpdateUserProfile(UpdateProfileRequestModel requestModel);
         
-        Task<string> EditPost(int id, string description);
+        Task<string> EditPost(Guid id, string description);
 
-        Task<string> EditAsnwer(int id, string description);
+        Task<string> EditAsnwer(Guid id, string description);
 
-        Task<string> EditSubAnswer(int id, string description);
+        Task<string> EditSubAnswer(Guid id, string description);
     }
 }

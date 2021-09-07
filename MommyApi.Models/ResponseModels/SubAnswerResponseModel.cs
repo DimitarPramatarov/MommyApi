@@ -8,7 +8,7 @@
 
         public string Description { get; set; }
 
-        public int SubAnswerId { get; set; }
+        public Guid SubAnswerId { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

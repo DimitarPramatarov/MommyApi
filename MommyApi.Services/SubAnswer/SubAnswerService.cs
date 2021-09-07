@@ -1,4 +1,6 @@
-﻿namespace MommyApi.Services
+﻿using System;
+
+namespace MommyApi.Services
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -47,11 +49,11 @@
         }
 
 
-        public async Task<IEnumerable<SubAnswerResponseModel>> GetSubAnswers(int answerId)
+        public async Task<IEnumerable<SubAnswerResponseModel>> GetSubAnswers(Guid answerId)
         {
             var answers = await this.dbContext.SubAnswers
                 .OrderBy(x => x.CreatedOn)
-                .Where(x => x.AnswerId == answerId)
+                .Where(x => x.AnswerId.Equals(answerId))
                 .ToListAsync();
 
 
@@ -73,7 +75,7 @@
             return responseSubAsnwer;
         }
 
-        public async Task<bool> UpdateSubAnswer(int subAnswerId, string description)
+        public async Task<bool> UpdateSubAnswer(Guid subAnswerId, string description)
         {
             var subAnswer = await this.dbContext.SubAnswers.Where(x => x.SubAnswerId == subAnswerId).FirstOrDefaultAsync();
             var userId = currentUserService.GetUserName();
@@ -89,7 +91,7 @@
             return true;
         }
 
-        public async Task<bool> DeleteSubAnswer(int subAnswerId)
+        public async Task<bool> DeleteSubAnswer(Guid subAnswerId)
         {
             var subAnswer = await this.dbContext.SubAnswers.Where(x => x.SubAnswerId == subAnswerId).FirstOrDefaultAsync();
             var userId = currentUserService.GetUserName();

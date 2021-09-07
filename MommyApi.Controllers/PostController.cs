@@ -1,4 +1,6 @@
-﻿namespace MommyApi.Controllers
+﻿using System;
+
+namespace MommyApi.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
@@ -58,7 +60,7 @@
 
         [HttpGet]
         [Route(nameof(Details))]
-        public async Task<ActionResult> Details(int id)
+        public async Task<ActionResult> Details(Guid id)
         {
             var postDetails = await postService.PostDetails(id);
 
@@ -72,7 +74,7 @@
 
         [HttpPost]
         [Route(nameof(SetIsAnswered))]
-        public async Task<ActionResult> SetIsAnswered(int postId)
+        public async Task<ActionResult> SetIsAnswered(Guid postId)
         {
             var result = await postService.SetPostAsAnswered(postId);
 
@@ -86,7 +88,7 @@
 
         [HttpPost]
         [Route(nameof(DeletePost))]
-        public async Task<ActionResult> DeletePost(int postId)
+        public async Task<ActionResult> DeletePost(Guid postId)
         {
             var result = await postService.DeletePost(postId);
 
@@ -102,7 +104,7 @@
 
         [HttpPut]
         [Route(nameof(UpdatePost))]
-        public async Task<ActionResult> UpdatePost(int postId, string description)
+        public async Task<ActionResult> UpdatePost(Guid postId, string description)
         {
             var result = await this.postService.UpdatePost(postId, description);
 

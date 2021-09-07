@@ -1,9 +1,11 @@
 ﻿namespace MommyApi.Services.Interfaces
 {
-    using MommyApi.Models.RequestModels;
-    using MommyApi.Models.ResponseModels;
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using Models.RequestModels;
+    using Models.ResponseModels;
 
     public interface IPostService
     {
@@ -13,12 +15,12 @@
 
         Task<IEnumerable<PostResponseModel>> MyPosts();
 
-        Task<PostDetailsResponseModel> PostDetails(int PostId);
+        Task<PostDetailsResponseModel> PostDetails(Guid PostId);
 
-        Task<bool> SetPostAsAnswered(int postId);
+        Task<bool> SetPostAsAnswered(Guid postId);
 
-        Task<bool> DeletePost(int postId);
+        Task<bool> DeletePost(Guid postId);
 
-        Task<bool> UpdatePost(int postId, string description);
+        Task<bool> UpdatePost(Guid postId, string description);
     }
 }

@@ -1,11 +1,12 @@
 ﻿namespace MommyApi.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public class Post : BasePublish
     {
-        public int PostId { get; set; }
+        public Guid PostId { get; set; } = new Guid();
 
         [Required]
         public string Title { get; set; }
