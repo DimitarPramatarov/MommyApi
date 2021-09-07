@@ -1,5 +1,4 @@
-﻿using MommyApi.Services.Administartion;
-using MommyApi.Services.Answer;
+﻿using MommyApi.Services.Search;
 
 namespace MommyApi.Infrastructure.Extensions
 {
@@ -10,16 +9,23 @@ namespace MommyApi.Infrastructure.Extensions
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
-    using MommyApi.AppInfrastructure;
-    using MommyApi.AppInfrastructure.Services;
-    using MommyApi.Data;
-    using MommyApi.Data.Models;
-    using MommyApi.Services;
-    using MommyApi.Services.ActivityCounter;
-    using MommyApi.Services.Interfaces;
-    using MommyApi.Services.Profile;
-    using MommyApi.Services.SubAsnwer;
     using System.Text;
+
+    using Data;
+    using AppInfrastructure;
+    using MommyApi.AppInfrastructure.Services;
+    using MommyApi.Data.Models;
+    using Services;
+    using Services.ActivityCounter;
+    using Services.Interfaces;
+    using Services.Profile;
+    using Services.SubAsnwer;
+    using Services.Administartion;
+    using Services.Answer;
+    using Services.Votes;
+    using Services.Post;
+
+
 
     public static class ServiceCollectionExtension
     {
@@ -44,16 +50,16 @@ namespace MommyApi.Infrastructure.Extensions
             services
                 .AddIdentity<User, IdentityRole>(options =>
                 {
-                    options.Password.RequiredLength = 6;
+                    options.Password.RequiredLength = 3;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
-
-
+                    options.User.RequireUniqueEmail = true;
+                    options.ClaimsIdentity.RoleClaimType.Normalize();
                 })
                 .AddEntityFrameworkStores<MommyApiDbContext>();
-            
+
 
             return services;
         }
@@ -89,12 +95,14 @@ namespace MommyApi.Infrastructure.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
             => services
              .AddTransient<IIdentityService, IdentityService>()
-              .AddTransient<ICurrentUserService, CurrentUserService>() 
+              .AddTransient<ICurrentUserService, CurrentUserService>()
             .AddTransient<IPostService, PostService>()
             .AddTransient<IAnswerService, AnswerService>()
             .AddTransient<ISubAnswerService, SubAnswerService>()
             .AddTransient<IActivityCounterService, ActivityCounterService>()
              .AddTransient<IAdministartionService, AdministrationService>()
+             .AddTransient<IVoteService, VoteService>()
+             .AddTransient<ISearchService, SearchService>()
             .AddTransient<IProfileService, ProfileService>();
 
         public static IServiceCollection AddSwagger(this IServiceCollection services)
@@ -124,5 +132,5 @@ namespace MommyApi.Infrastructure.Extensions
                   }
                 });
             });
-    }       
+    }
 }

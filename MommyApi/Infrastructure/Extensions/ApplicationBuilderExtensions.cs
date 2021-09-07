@@ -3,8 +3,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-    using MommyApi.Data;
-    using MommyApi.Data.Seeding;
+    using Data;
     using System;
 
     public static class ApplicationBuilderExtensions
