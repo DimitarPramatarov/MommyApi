@@ -1,18 +1,17 @@
-﻿using System;
-
-namespace MommyApi.Services.Answer
+﻿namespace MommyApi.Services.Answer
 {
+    using System;
     using Microsoft.EntityFrameworkCore;
-    using MommyApi.AppInfrastructure.Services;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     using Data;
+    using MommyApi.AppInfrastructure.Services;
     using MommyApi.Data.Models;
     using Models.RequestModels;
     using Models.ResponseModels;
     using ActivityCounter;
-    using Interfaces;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class AnswerService : IAnswerService
     {
@@ -73,6 +72,7 @@ namespace MommyApi.Services.Answer
             {
                 var answer = new AnswerResponseModel
                 {
+                    AnswerId = item.AnswerId,
                     Text = item.Description,
                     Username = item.CreatedBy,
                     CreatedOn = item.CreatedOn

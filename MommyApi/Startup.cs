@@ -26,8 +26,9 @@ namespace MommyApi
                 .AddDatabaseDeveloperPageExceptionFilter()
                 .AddIdentity()
                 .AddApplicationServices()
-                .AddControllers().AddJsonOptions(x =>
-                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+                .AddControllers();
+                
+
 
             services
                 .AddJwtAuthentication(services.GetApplicationSettings(this.Configuration));
@@ -52,12 +53,12 @@ namespace MommyApi
             }
 
             app
-                .UseSwaggerUI()
                 .UseRouting()
                 .UseCors(options => options
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod())
+                .UseSwaggerUI()
                 .UseAuthentication()
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>

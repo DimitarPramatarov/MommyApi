@@ -1,11 +1,15 @@
-﻿using System;
-
+﻿
 namespace MommyApi.Controllers
 {
+    using System;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
-    using MommyApi.Services.Interfaces;
-    using MommyApi.Models.RequestModels;
+    using Microsoft.AspNetCore.Authorization;
+
+    using Services.Interfaces;
+    using Models.RequestModels;
+    using Models.ResponseModels;
+
 
     public class PostController : ApiController
     {
@@ -18,7 +22,8 @@ namespace MommyApi.Controllers
 
         [HttpGet]
         [Route(nameof(GetAllPosts))]
-        public async Task<ActionResult> GetAllPosts()
+        [AllowAnonymous]
+        public async Task<ActionResult<PostResponseModel>> GetAllPosts()
         {
             var result = await postService.GetPosts();
 

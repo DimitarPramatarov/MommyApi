@@ -22,9 +22,9 @@
         [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterRequestModel requestModel)
         {
-            var result = await identityService.Register(requestModel);
+            var regResult = await identityService.Register(requestModel);
 
-            if(result is false)
+            if(regResult is false)
             {
                 return BadRequest("Account is not created");
             }
