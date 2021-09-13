@@ -22,7 +22,6 @@ namespace MommyApi.Controllers
 
         [HttpGet]
         [Route(nameof(GetAllPosts))]
-        [AllowAnonymous]
         public async Task<ActionResult<PostResponseModel>> GetAllPosts()
         {
             var result = await postService.GetPosts();
