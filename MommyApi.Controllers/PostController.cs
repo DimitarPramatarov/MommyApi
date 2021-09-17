@@ -1,5 +1,4 @@
-﻿
-namespace MommyApi.Controllers
+﻿namespace MommyApi.Controllers
 {
     using System;
     using Microsoft.AspNetCore.Mvc;
@@ -64,9 +63,9 @@ namespace MommyApi.Controllers
 
         [HttpGet]
         [Route(nameof(Details))]
-        public async Task<ActionResult> Details(Guid id)
+        public async Task<ActionResult> Details(Guid postId)
         {
-            var postDetails = await postService.PostDetails(id);
+            var postDetails = await postService.PostDetails(postId);
 
             if (postDetails is null)
             {

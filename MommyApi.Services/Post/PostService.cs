@@ -37,7 +37,7 @@ namespace MommyApi.Services.Post
             {
                 Title = createPost.Title,
                 Description = createPost.Description,
-                CreatedOn = DateTime.UtcNow,
+                CreatedOn = DateTime.UtcNow.Date,
                 UserId = userId
             };
 
