@@ -38,17 +38,14 @@
         public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel requestModel)
         {
 
-            string token = await identityService.Login(requestModel);
+            var result = await identityService.Login(requestModel);
 
-            if (token == "")
+            if (result == null)
             {
                 return Unauthorized();
             }
 
-            return new LoginResponseModel
-            {
-                Token = token
-            };
+            return result;
         }
     }
 }

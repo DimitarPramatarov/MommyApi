@@ -54,21 +54,21 @@
             return encryptedToken;
         }
 
-        public async Task<string> Login(LoginRequestModel requestModel)
+        public async Task<LoginResponseModel> Login(LoginRequestModel requestModel)
         {
             var token = "";
             var user = await this.userManager.FindByNameAsync(requestModel.Username);
 
             if(user is null)
             {
-                return token;
+                return null;
             }
 
             var passwordValid = await this.userManager.CheckPasswordAsync(user, requestModel.Password);
 
             if (!passwordValid)
             {
-                return token;
+                return null;
             }
 
                 token = GenerateJwtToken(
@@ -77,7 +77,13 @@
                 this.appSettings.Secret
                 );
 
-            return token;
+                var loginResponse = new LoginResponseModel
+                {
+                    Token = token,
+                    UserName = user.UserName
+                };
+
+                return loginResponse;
         }
 
         public async Task<bool> Register(RegisterRequestModel requestModel)

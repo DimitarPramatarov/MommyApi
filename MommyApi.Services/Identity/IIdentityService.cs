@@ -2,6 +2,7 @@
 {
     using MommyApi.Models.RequestModels;
     using System.Threading.Tasks;
+    using MommyApi.Models.ResponseModels;
 
     public interface IIdentityService
     {
@@ -9,6 +10,6 @@
 
         Task<bool> Register(RegisterRequestModel reuqestModel);
 
-        Task<string> Login(LoginRequestModel loginRequestModel);
+        Task<LoginResponseModel> Login(LoginRequestModel loginRequestModel);
     }
 }
