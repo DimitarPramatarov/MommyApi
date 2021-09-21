@@ -65,7 +65,7 @@ namespace MommyApi.Services
                 {
                     Description = item.Description,
                     CreatedBy = item.CreatedBy,
-                    CreatedOn = item.CreatedOn,
+                    CreatedOn = item.CreatedOn.ToShortDateString(),
                     SubAnswerId = item.SubAnswerId,
                 };
 

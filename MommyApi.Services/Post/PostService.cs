@@ -1,5 +1,4 @@
-﻿
-namespace MommyApi.Services.Post
+﻿namespace MommyApi.Services.Post
 {
     using System;
     using System.Collections.Generic;
@@ -64,7 +63,7 @@ namespace MommyApi.Services.Post
             {
                 var post = new PostResponseModel
                 {
-                    CreatedOn = item.CreatedOn,
+                    CreatedOn = item.CreatedOn.ToShortDateString(),
                     PostId = item.PostId,
                     Title = item.Title,
                     Username = item.User.UserName
@@ -90,7 +89,7 @@ namespace MommyApi.Services.Post
             {
                 var myPost = new PostResponseModel
                 {
-                    CreatedOn = item.CreatedOn,
+                    CreatedOn = item.CreatedOn.ToShortDateString(),
                     PostId = item.PostId,
                     Title = item.Title,
                     Username = item.CreatedBy
@@ -112,7 +111,7 @@ namespace MommyApi.Services.Post
             {
                 IsAnswered = postDetails.Answered,
                 Username = postDetails.CreatedBy,
-                CreatedOn = postDetails.CreatedOn,
+                CreatedOn = postDetails.CreatedOn.ToShortDateString(),
                 PostId = postDetails.PostId,
                 Description = postDetails.Description,
                 Title = postDetails.Title,

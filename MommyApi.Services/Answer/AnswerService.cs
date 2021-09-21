@@ -75,7 +75,7 @@
                     AnswerId = item.AnswerId,
                     Text = item.Description,
                     Username = item.CreatedBy,
-                    CreatedOn = item.CreatedOn
+                    CreatedOn = item.CreatedOn.ToShortDateString()
                 };
 
                 responeAnswers.Add(answer);

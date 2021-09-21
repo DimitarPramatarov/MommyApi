@@ -8,7 +8,7 @@
 
         public string Title { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
 
         public string Username { get; set; }
 
