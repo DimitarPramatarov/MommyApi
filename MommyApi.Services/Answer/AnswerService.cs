@@ -75,7 +75,8 @@
                     AnswerId = item.AnswerId,
                     Text = item.Description,
                     Username = item.CreatedBy,
-                    CreatedOn = item.CreatedOn.ToShortDateString()
+                    CreatedOn = item.CreatedOn.ToShortDateString(),
+                    IsCorrectAnswer = item.CorrectAnswer
                 };
 
                 responeAnswers.Add(answer);
@@ -138,21 +139,41 @@
         {
             var user = this.currentUserService.GetId();
             
-            var answer = await this.dbContext.Answers.FindAsync(answerId);
+            var answer = await this.dbContext.Answers.Where(x => x.AnswerId == answerId).FirstOrDefaultAsync();
+
+            if (answer == null)
+            {
+                return "Not Found";
+            }
 
             var postOwner = await this.dbContext.Posts.Where(x => x.PostId == answer.PostId).FirstOrDefaultAsync();
 
             if (postOwner.UserId != user)
             {
-                return "This user cannot correct answer";
+                return "Only post owner can accept answer!";
             }
 
-            answer.CorrectAnswer = true;
-            postOwner.Answered = true;
+            answer.CorrectAnswer = ChangeIsCorrect(answer.CorrectAnswer);
+            postOwner.Answered = ChangeIsCorrect(postOwner.Answered);
+
             await this.dbContext.SaveChangesAsync();
 
-            return "Answer is correct";
+            if (answer.CorrectAnswer == false)
+            {
+                return "You unaccept the answer";
+            }
+
+            return "You accept the answer";
         }
 
+        private bool ChangeIsCorrect(bool answerValue)
+        {
+            if (answerValue == true)
+            {
+                return false;
+            }
+            
+            return true;
+        }
     }
 }

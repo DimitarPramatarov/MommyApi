@@ -1,14 +1,14 @@
-﻿using System;
-using MommyApi.Services.Answer;
-
-namespace MommyApi.Controllers
+﻿namespace MommyApi.Controllers
 {
+    using System;
     using Microsoft.AspNetCore.Mvc;
-    using Models.RequestModels;
-    using Models.ResponseModels;
-    using Services.Interfaces;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using MommyApi.Services.Answer;
+
+    using Models.RequestModels;
+    using Models.ResponseModels;
+
 
     public class AnswerController : ApiController
     {
@@ -72,10 +72,15 @@ namespace MommyApi.Controllers
 
         [HttpPut]
         [Route(nameof(SetCorrectAnswer))]
-        public async Task<ActionResult> SetCorrectAnswer(Guid answerId)
+        public async Task<ActionResult<bool>> SetCorrectAnswer(SetCorrectAnswerRequestModel requestModel)
         {
            
-            var result = await this.answerService.AcceptAnswer(answerId);
+            var result = await this.answerService.AcceptAnswer(requestModel.AnswerId);
+
+            if (result == null)
+            {
+                return BadRequest(result);
+            }
 
             return Ok(result);
         }

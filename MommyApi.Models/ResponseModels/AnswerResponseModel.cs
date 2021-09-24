@@ -11,5 +11,7 @@
         public string Text { get; set; }
 
         public string CreatedOn { get; set; }
+
+        public bool IsCorrectAnswer { get; set; }
     }
 }

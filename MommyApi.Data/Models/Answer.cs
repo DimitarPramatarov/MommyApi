@@ -1,10 +1,8 @@
-﻿using System;
-using Newtonsoft.Json;
-
-namespace MommyApi.Data.Models
+﻿namespace MommyApi.Data.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System;
 
     public class Answer : BasePublish
     {
