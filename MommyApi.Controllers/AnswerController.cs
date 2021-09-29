@@ -24,7 +24,7 @@
         [Route(nameof(CreateAnswer))]
         public async Task<ActionResult> CreateAnswer(AnswerRequestModel requestModel)
         {
-            if(requestModel.Text is null)
+                if(requestModel.Description is null)
             {
                 return BadRequest("Answer cannot be null");
             }
@@ -56,9 +56,9 @@
 
         [HttpPost]
         [Route(nameof(DeleteAnswer))]
-        public async Task<ActionResult> DeleteAnswer(Guid answerId)
+        public async Task<ActionResult<bool>> DeleteAnswer(ByIdRequestModel requestModel)
         {
-            var result = await this.answerService.DeleteAnswer(answerId);
+            var result = await this.answerService.DeleteAnswer(requestModel.Id);
 
             if(result is false)
             {
@@ -67,8 +67,6 @@
 
             return Ok(true);
         }
-
-        //TODO : Add SetCorrectAnswer
 
         [HttpPut]
         [Route(nameof(SetCorrectAnswer))]
