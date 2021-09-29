@@ -52,7 +52,7 @@
         {
 
             var result = await dbContext.Posts
-                .OrderBy(x => x.CreatedOn)
+                .OrderByDescending(x => x.CreatedOn)
                 .Where(x => x.IsDeleted == false)
                 .Include(x => x.User)
                 .ToListAsync();
@@ -152,6 +152,9 @@
             }
 
             post.IsDeleted = true;
+            post.DeletedOn = DateTime.UtcNow;
+            post.DeletedBy = userId;
+            await this.dbContext.SaveChangesAsync();
 
             return true;
         }

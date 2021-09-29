@@ -3,7 +3,6 @@
     using System;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Authorization;
 
     using Services.Interfaces;
     using Models.RequestModels;
@@ -91,9 +90,9 @@
 
         [HttpPost]
         [Route(nameof(DeletePost))]
-        public async Task<ActionResult> DeletePost(Guid postId)
+        public async Task<ActionResult> DeletePost(ByIdRequestModel request)
         {
-            var result = await postService.DeletePost(postId);
+            var result = await postService.DeletePost(request.Id);
 
             if(result is false)
             {
