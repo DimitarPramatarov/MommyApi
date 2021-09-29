@@ -1,4 +1,6 @@
-﻿namespace MommyApi.Services.Profile
+﻿using System;
+
+namespace MommyApi.Services.Profile
 {
     using MommyApi.AppInfrastructure.Services;
     using Data;
@@ -43,9 +45,9 @@
             return true;
         }
 
-        public async Task<ProfileResponseModel> ProfileDetails(string profileId)
+        public async Task<ProfileResponseModel> ProfileDetails(string username)
         {
-            var profileDetails = await this.dbContext.UserProfiles.FindAsync(profileId);
+            var profileDetails = await this.dbContext.UserProfiles.Where(x => x.Username == username).FirstOrDefaultAsync();
 
             if(profileDetails == null)
             {
@@ -63,6 +65,31 @@
             };
 
             return profile;
+        }
+
+        public async Task<ProfileResponseModel> MyProfile()
+        {
+            var currentUserId = this.currentUserService.GetId();
+
+            var myProfileDetails = await this.dbContext.UserProfiles.FindAsync(currentUserId);
+
+            if (myProfileDetails is null)
+            {
+                return null;
+            }
+
+            var profile = new ProfileResponseModel
+            {
+                Answers = myProfileDetails.Asnwers,
+                Follows = myProfileDetails.Follows,
+                Description = myProfileDetails.Description,
+                MainPhotoUrl = myProfileDetails.MainPhotoUrl,
+                Posts = myProfileDetails.Posts,
+                UserName = myProfileDetails.Username,
+            };
+
+            return profile;
+
         }
 
          
