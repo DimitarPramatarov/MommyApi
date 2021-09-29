@@ -45,7 +45,7 @@
 
             var answer = new Answer
             {
-                Description = model.Text,
+                Description = model.Description,
                 PostId = model.PostId,
             };
 
@@ -121,16 +121,19 @@
         public async Task<bool> DeleteAnswer(Guid answerId)
         {
             var answer = await this.dbContext.Answers.Where(x => x.AnswerId == answerId).FirstOrDefaultAsync();
-            var userId = this.currentUserService.GetUserName();
+            var user = this.currentUserService.GetUserName();
+            var userId = this.currentUserService.GetId();
 
 
-            if (userId != answer.CreatedBy)
+            if (user != answer.CreatedBy)
             {
                 return false;
             }
 
             answer.IsDeleted = true;
-
+            answer.DeletedBy = userId;
+            answer.DeletedOn = DateTime.UtcNow;
+            await dbContext.SaveChangesAsync();
             return true;
 
         }
