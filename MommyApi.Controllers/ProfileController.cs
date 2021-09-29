@@ -1,5 +1,6 @@
 ﻿namespace MommyApi.Controllers
 {
+    using System;
     using Microsoft.AspNetCore.Mvc;
     using MommyApi.Models.RequestModels;
     using MommyApi.Models.ResponseModels;
@@ -17,15 +18,29 @@
 
         [HttpGet]
         [Route(nameof(ProfileDetails))]
-        public async Task<ActionResult<ProfileResponseModel>> ProfileDetails(string profileId)
+        public async Task<ActionResult<ProfileResponseModel>> ProfileDetails(string username)
         {
-            var result = await this.profileService.ProfileDetails(profileId);
+            var result = await this.profileService.ProfileDetails(username);
 
-            if(result == null)
+            if(result is null)
             {
                 return BadRequest("User profile not found");
             }
 
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route(nameof(MyProfile))]
+        public async Task<ActionResult<ProfileResponseModel>> MyProfile()
+        {
+            var result = await this.profileService.MyProfile();
+
+            if (result is null)
+            {
+                return BadRequest("Profile not found");
+            }
 
             return Ok(result);
         }
