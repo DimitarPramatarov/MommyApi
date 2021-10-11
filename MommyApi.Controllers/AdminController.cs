@@ -7,6 +7,7 @@
     using Services.Administartion;
     using System.Threading.Tasks;
 
+    [Authorize(Roles = "SuperAdmin")]
     public class AdminController : ApiController
     {
         private readonly IAdministartionService service;
@@ -44,7 +45,6 @@
             return Ok("User is added to role");
         }
 
-        [Authorize(Roles = "SUPERADMIN")]
         [HttpPut]
         [Route(nameof(EditPost))]
         public async Task<ActionResult> EditPost(Guid postId, string description)

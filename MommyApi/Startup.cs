@@ -28,11 +28,11 @@ namespace MommyApi
                 .AddApplicationServices()
                 .AddControllers();
                 
-
+            
 
             services
                 .AddJwtAuthentication(services.GetApplicationSettings(this.Configuration));
-           
+          
             services
                 .AddSwagger();
         }
