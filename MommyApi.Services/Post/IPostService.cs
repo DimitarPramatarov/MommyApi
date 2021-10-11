@@ -15,6 +15,8 @@
 
         Task<IEnumerable<PostResponseModel>> MyPosts();
 
+        Task<IEnumerable<PostResponseModel>> GetUserPosts(string username);
+
         Task<PostDetailsResponseModel> PostDetails(Guid PostId);
 
         Task<bool> SetPostAsAnswered(Guid postId);

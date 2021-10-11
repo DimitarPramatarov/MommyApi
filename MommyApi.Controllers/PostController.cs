@@ -61,6 +61,15 @@
         }
 
         [HttpGet]
+        [Route(nameof(GetUserPosts))]
+        public async Task<ActionResult> GetUserPosts(string username)
+        {
+            var userPosts = await postService.GetUserPosts(username);
+
+            return Ok(userPosts);
+        }
+
+        [HttpGet]
         [Route(nameof(Details))]
         public async Task<ActionResult> Details(Guid postId)
         {

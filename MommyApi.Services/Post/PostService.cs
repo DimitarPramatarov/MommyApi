@@ -40,9 +40,9 @@
                 UserId = userId
             };
 
-           await this.dbContext.AddAsync(newPost);
-           await this.dbContext.SaveChangesAsync();
-           await this.activityCounterService.PostCount();
+            await this.dbContext.AddAsync(newPost);
+            await this.dbContext.SaveChangesAsync();
+            await this.activityCounterService.PostCount();
 
 
             return "Your post is created!";
@@ -59,7 +59,7 @@
 
             IList<PostResponseModel> resultRes = new List<PostResponseModel>();
 
-            foreach(var item in result)
+            foreach (var item in result)
             {
                 var post = new PostResponseModel
                 {
@@ -85,7 +85,7 @@
 
             IList<PostResponseModel> result = new List<PostResponseModel>();
 
-            foreach(var item in myPosts)
+            foreach (var item in myPosts)
             {
                 var myPost = new PostResponseModel
                 {
@@ -99,6 +99,36 @@
             }
 
             return result;
+        }
+
+        //TODO finish get user  posts!
+
+        public async Task<IEnumerable<PostResponseModel>> GetUserPosts(string username)
+        {
+            var userPosts = await this.dbContext.Posts.Where(x => x.User.UserName == username && x.IsDeleted == false).ToListAsync();
+
+            if (userPosts == null)
+            {
+                throw new ArgumentException("Posts not found!");
+            }
+
+            IList<PostResponseModel> posts = new List<PostResponseModel>();
+
+            foreach (var item in userPosts)
+            {
+                var post = new PostResponseModel
+                {
+                    PostId = item.PostId,
+                    CreatedOn = item.CreatedOn.ToShortDateString(),
+                    Title = item.Title,
+                    IsAnswered = item.Answered,
+                };
+
+                posts.Add(post);
+            }
+
+            return posts;
+
         }
 
         public async Task<PostDetailsResponseModel> PostDetails(Guid postId)
@@ -127,12 +157,12 @@
             var post = await this.dbContext.Posts
                 .Where(x => x.PostId == postId)
                 .FirstOrDefaultAsync();
-            
-            if(userId != post.UserId)
+
+            if (userId != post.UserId)
             {
                 return false;
             }
-            
+
             post.Answered = true;
 
             await this.dbContext.SaveChangesAsync();
@@ -146,7 +176,7 @@
 
             var post = await this.dbContext.Posts.Where(x => x.PostId == postId).FirstOrDefaultAsync();
 
-            if(userId != post.UserId)
+            if (userId != post.UserId)
             {
                 return false;
             }

@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using Services.Votes;
     using System;
-
+    using MommyApi.Models.RequestModels;
 
     public class VoteController : ApiController
     {
@@ -18,19 +18,19 @@
 
         [HttpPost]
         [Route(nameof(PlusVote))]
-        public async Task<ActionResult> PlusVote(Guid id)
+        public async Task<ActionResult> PlusVote(VoteRequestModel requestModel)
         {
 
-            var result = await this.voteService.AddPlusVoteById(id);
+            var result = await this.voteService.AddPlusVoteById(requestModel.Id);
 
             return Ok(result);
         }
 
         [HttpPost]
         [Route(nameof(MinusVote))]
-        public async Task<ActionResult> MinusVote(Guid id)
+        public async Task<ActionResult> MinusVote(VoteRequestModel requestModel)
         {
-            var result = await this.voteService.AddMinusVoteById(id);
+            var result = await this.voteService.AddMinusVoteById(requestModel.Id);
 
             return Ok(result);
         }
@@ -40,6 +40,11 @@
         public async Task<ActionResult> GetTotalVotes(Guid id)
         {
             var result = await this.voteService.GetTotalVotesById(id);
+
+            if(id == Guid.Empty)
+            {
+                return BadRequest();
+            }
             return Ok(result);
         }
     }
