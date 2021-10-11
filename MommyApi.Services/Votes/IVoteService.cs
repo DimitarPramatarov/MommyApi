@@ -12,6 +12,6 @@
 
         Task RemoveVoteById(Guid id);
 
-        Task<int> GetTotalVotesById(Guid id);
+        Task<string> GetTotalVotesById(Guid id);
     }
 }

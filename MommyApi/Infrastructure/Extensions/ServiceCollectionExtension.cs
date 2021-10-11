@@ -56,7 +56,7 @@ namespace MommyApi.Infrastructure.Extensions
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
                     options.User.RequireUniqueEmail = true;
-                    options.ClaimsIdentity.RoleClaimType.Normalize();
+                    options.ClaimsIdentity.RoleClaimType.IsNormalized();
                 })
                 .AddEntityFrameworkStores<MommyApiDbContext>();
 

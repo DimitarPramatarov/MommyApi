@@ -70,20 +70,36 @@
             throw new System.NotImplementedException();
         }
 
-        public async Task<int> GetTotalVotesById(Guid id)
+        public async Task<string> GetTotalVotesById(Guid id)
         {
-            var plusVotes = await this.dbContext.Votes.Where(x => x.VoteForId == id)
+            var plusVotes = await GetPlusVotes(id);
+
+            var minusVotes = await GetMinusVotes(id);
+
+
+            var result = plusVotes - minusVotes;
+
+            return result.ToString();
+        }
+
+        private async Task<int> GetPlusVotes(Guid id)
+        {
+            var plusVotes = await this.dbContext.Votes
+                .Where(x => x.VoteForId == id)
                 .Where(x => x.VoteType == VoteTypes.PlusVote)
                 .CountAsync();
 
+            return plusVotes;
+        }
+
+        private async Task<int> GetMinusVotes(Guid id)
+        {
             var minusVotes = await this.dbContext.Votes
                 .Where(x => x.VoteForId == id)
                 .Where(x => x.VoteType == VoteTypes.MinusVote)
                 .CountAsync();
 
-            var result = plusVotes - minusVotes;
-
-            return result;
+            return minusVotes;
         }
 
         private async Task<bool> IsVoted(Guid id)
@@ -92,10 +108,15 @@
 
             var result = await this.dbContext.Votes
                 .Where(x => x.VoteForId == id)
-                .Select(x => x.CreatedBy == user)
+                .Where(x => x.CreatedBy == user)
                 .FirstOrDefaultAsync();
 
-            return result;
+            if(result != null)
+            {
+                return true;
+            }
+
+            return false;
         }
         
     }
