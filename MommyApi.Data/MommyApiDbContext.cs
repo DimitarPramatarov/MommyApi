@@ -51,7 +51,7 @@
 
             builder
                 .Entity<SubAnswer>()
-                .HasQueryFilter(x => x.IsDeleted)
+                .HasQueryFilter(x => !x.IsDeleted)
                 .HasOne(x => x.Answer)
                 .WithMany(x => x.SubAnswers)
                 .HasForeignKey(x => x.AnswerId)
