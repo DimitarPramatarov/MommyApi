@@ -42,9 +42,9 @@
         
         [HttpPut]
         [Route(nameof(UpdateAnswer))]
-        public async Task<ActionResult> UpdateAnswer(Guid answerId, string description)
+        public async Task<ActionResult> UpdateAnswer(EditRequestModel requestModel)
         {
-            var result = await this.answerService.UpdateAnswer(answerId, description);
+            var result = await this.answerService.UpdateAnswer(requestModel.Id, requestModel.Description);
 
             if(result is false)
             {

@@ -117,7 +117,7 @@
         [Route(nameof(UpdatePost))]
         public async Task<ActionResult> UpdatePost(EditRequestModel requestModel)
         {
-            var result = await this.postService.UpdatePost(requestModel.PostId, requestModel.Description);
+            var result = await this.postService.UpdatePost(requestModel.Id, requestModel.Description);
 
             if (result is false)
             {

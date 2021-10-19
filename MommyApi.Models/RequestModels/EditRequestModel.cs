@@ -4,7 +4,7 @@
 
     public class EditRequestModel
     {
-        public Guid PostId { get; set; }
+        public Guid Id { get; set; }
 
         public string Description { get; set; }
     }
