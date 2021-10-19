@@ -37,7 +37,7 @@ namespace MommyApi.Services
        
             var answer = new SubAnswer
             {
-                Description = requestModel.Descripton,
+                Description = requestModel.Description,
                 AnswerId = requestModel.AnswerId,
                 
             };
@@ -51,15 +51,14 @@ namespace MommyApi.Services
 
         public async Task<IEnumerable<SubAnswerResponseModel>> GetSubAnswers(Guid answerId)
         {
-            var answers = await this.dbContext.SubAnswers
-                .OrderBy(x => x.CreatedOn)
-                .Where(x => x.AnswerId.Equals(answerId))
+
+            var subAnswers = await this.dbContext.SubAnswers
+                .Where(x => x.AnswerId == answerId)
                 .ToListAsync();
-
-
+    
             IList<SubAnswerResponseModel> responseSubAsnwer = new List<SubAnswerResponseModel>();
 
-            foreach (var item in answers)
+            foreach (var item in subAnswers)
             {
                 var answer = new SubAnswerResponseModel
                 {
@@ -94,10 +93,10 @@ namespace MommyApi.Services
         public async Task<bool> DeleteSubAnswer(Guid subAnswerId)
         {
             var subAnswer = await this.dbContext.SubAnswers.Where(x => x.SubAnswerId == subAnswerId).FirstOrDefaultAsync();
-            var userId = currentUserService.GetUserName();
+            var username = currentUserService.GetUserName();
 
 
-            if (userId != subAnswer.CreatedBy)
+            if (username != subAnswer.CreatedBy)
             {
                 return false;
             }
