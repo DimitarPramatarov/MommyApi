@@ -1,14 +1,11 @@
 ﻿namespace MommyApi.Models.RequestModels
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     public class SubAnswerRequestModel
     {
-        [Required]
-        public Guid AnswerId { get; set; }
+        public string Description { get; set; }
 
-        [Required]
-        public string Descripton { get; set; }
+        public Guid AnswerId { get; set; }
     }
 }

@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace MommyApi.Models.RequestModels
+﻿namespace MommyApi.Models.RequestModels
 {
+    using System;
+
     public class AnswerRequestModel
     {
         public string Description { get; set; }
