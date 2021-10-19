@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace MommyApi.Controllers
+﻿namespace MommyApi.Controllers
 {
+    using System;
     using Microsoft.AspNetCore.Mvc;
     using MommyApi.Models.RequestModels;
     using MommyApi.Models.ResponseModels;
@@ -23,7 +22,7 @@ namespace MommyApi.Controllers
         [Route(nameof(CreateSubAnswer))]
         public async Task<ActionResult> CreateSubAnswer(SubAnswerRequestModel requestModel)
         {
-            if (requestModel.Descripton is null)
+            if (requestModel.Description is null)
             {
                 return BadRequest("Answer cannot be null");
             }
@@ -35,15 +34,15 @@ namespace MommyApi.Controllers
 
         [HttpGet]
         [Route(nameof(GetSubAnswers))]
-        public async Task<IEnumerable<SubAnswerResponseModel>> GetSubAnswers(Guid subAnswerId)
-        => await this.subAnswerService.GetSubAnswers(subAnswerId);
+        public async Task<IEnumerable<SubAnswerResponseModel>> GetSubAnswers(Guid answerId)
+        => await this.subAnswerService.GetSubAnswers(answerId);
 
 
         [HttpPut]
         [Route(nameof(UpdateSubAnswer))]
-        public async Task<ActionResult> UpdateSubAnswer(Guid subAnswerId, string description)
+        public async Task<ActionResult> UpdateSubAnswer(EditRequestModel requestModel)
         {
-            var result = await this.subAnswerService.UpdateSubAnswer(subAnswerId, description);
+            var result = await this.subAnswerService.UpdateSubAnswer(requestModel.Id, requestModel.Description);
 
             if (result is false)
             {
@@ -55,9 +54,9 @@ namespace MommyApi.Controllers
 
         [HttpPost]
         [Route(nameof(DeleteSubAnswer))]
-        public async Task<ActionResult> DeleteSubAnswer(Guid subAsnwerId)
+        public async Task<ActionResult> DeleteSubAnswer(ByIdRequestModel subAnswerId)
         {
-            var result = await this.subAnswerService.DeleteSubAnswer(subAsnwerId);
+            var result = await this.subAnswerService.DeleteSubAnswer(subAnswerId.Id);
 
             if (result is false)
             {
