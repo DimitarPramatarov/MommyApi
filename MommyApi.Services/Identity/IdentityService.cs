@@ -33,7 +33,7 @@
         }
 
          
-        public async Task<string> GenerateJwtToken(string userId, string username, string role, string secret)
+        public  string GenerateJwtToken(string userId, string username, string role, string secret)
         {
            
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -81,7 +81,7 @@
 
             var role = userRole.FirstOrDefault();
 
-                token = await GenerateJwtToken(
+                token =  GenerateJwtToken(
                 user.Id,
                 user.UserName,
                 role,
